@@ -19,11 +19,11 @@ their builds to their users. But you can use it for any other purpose of course 
 
  Badge       | URL
 :------------|:---------------------------------------------------------------------------------|
-Normal size  | https://img.badgesize.io/ngryman/badge-size/master/index.js.svg
-Gzipped size | https://img.badgesize.io/ngryman/badge-size/master/index.js.svg?compression=gzip
-Custom label | [https://img.badgesize.io/ngryman/badge-size/master/index.js.svg?label=As tiny as]
-PNG format   | https://img.badgesize.io/ngryman/badge-size/master/index.js.png
-JPG format   | https://img.badgesize.io/ngryman/badge-size/master/index.js.jpg
+Normal size  | https://badge-size.herokuapp.com/ngryman/badge-size/master/index.js.svg
+Gzipped size | https://badge-size.herokuapp.com/ngryman/badge-size/master/index.js.svg?compression=gzip
+Custom label | https://badge-size.herokuapp.com/ngryman/badge-size/master/index.js.svg?label=As tiny as
+PNG format   | https://badge-size.herokuapp.com/ngryman/badge-size/master/index.js.png
+JPG format   | https://badge-size.herokuapp.com/ngryman/badge-size/master/index.js.jpg
 
 
 ## Usage
