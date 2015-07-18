@@ -7,11 +7,23 @@
 
 > Displays the size of a given file in your repository.
 
+
 `badge-size` allows you to display in real time the size of a given file which lives in your repository.
 The size is always the one of your last pushed commit.
 
-`badge-size` is mainly designed for front-end library authors that want to advertise the weight of
-their builds to their users. But you can use it for any other purpose if you like of course :v:.
+It is mainly designed for front-end library authors that want to advertise the weight of
+their builds to their users. But you can use it for any other purpose of course :v:.
+
+
+## Examples
+
+ Badge       | URL
+:------------|:---------------------------------------------------------------------------------|
+Normal size  | https://img.badgesize.io/ngryman/badge-size/master/index.js.svg
+Gzipped size | https://img.badgesize.io/ngryman/badge-size/master/index.js.svg?compression=gzip
+Custom label | [https://img.badgesize.io/ngryman/badge-size/master/index.js.svg?label=As tiny as]
+PNG format   | https://img.badgesize.io/ngryman/badge-size/master/index.js.png
+JPG format   | https://img.badgesize.io/ngryman/badge-size/master/index.js.jpg
 
 
 ## Usage
@@ -19,11 +31,11 @@ their builds to their users. But you can use it for any other purpose if you lik
 It works like any other badge service you may know and it's configurable in the image url itself.
 Here is the general pattern of a typical `badge-size` url:
 
-```md
+```
 https://img.badgesize.io/:filepath[.svg|png|jpg][?compress=gzip][&label=string]
 ```
 
-### `:filepath`
+#### `:filepath`
 
 It's the url of your file on `github` when you browse it in the source explorer, minus `blob/` part.
 Here is its typical form:
@@ -38,27 +50,18 @@ For example if I want to point to this repository `index.js`, it would be:
 
 Note that the branch name mandatory.
 
-### `[.svg|png|jpg]`
+#### `[.svg|png|jpg]`
 
 Optional image format. By default `svg` is used.
 
-### `[?compress=gzip]`
+#### `[?compress=gzip]`
 
 Optional compression format to measure. It's useful if you want to advertise the *true* size your
 file would take on the wire, assuming the server has `gzip` compression enabled.
 
-### `[&label=string]`
+#### `[&label=string]`
 
 Optional text to display in the badge instead of *size* / *gzip size*.
-
-
-## Examples
-
-Normal size  | https://img.badgesize.io/ngryman/badge-size/master/index.js.svg
-Gzipped size | https://img.badgesize.io/ngryman/badge-size/master/index.js.svg?compression=gzip
-Custom label | https://img.badgesize.io/ngryman/badge-size/master/index.js.svg?label=As tiny as
-PNG format   | https://img.badgesize.io/ngryman/badge-size/master/index.js.png
-JPG format   | https://img.badgesize.io/ngryman/badge-size/master/index.js.jpg
 
 
 ## License
