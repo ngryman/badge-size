@@ -54,7 +54,7 @@ Note that the branch name mandatory.
 
 Optional image format. By default `svg` is used.
 
-#### `[?compress=gzip]`
+#### `[?compression=gzip]`
 
 Optional compression format to measure. It's useful if you want to advertise the *true* size your
 file would take on the wire, assuming the server has `gzip` compression enabled.
