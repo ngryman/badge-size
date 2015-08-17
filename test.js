@@ -21,7 +21,7 @@ describe('http://img.badgesize.io', () => {
       url: '/baxterthehacker/public-repo/master/README.md.svg'
     }).then((res) => {
       expect(res.statusCode).to.equal(302)
-      expect(res.headers.location).to.equal(`${SHIELDS_URL}/size-34 B-brightgreen.svg`)
+      expect(res.headers.location).to.equal(`${SHIELDS_URL}/size-14 B-brightgreen.svg`)
     })
   })
 
@@ -41,7 +41,7 @@ describe('http://img.badgesize.io', () => {
       url: '/baxterthehacker/public-repo/changes/README.md.svg'
     }).then((res) => {
       expect(res.statusCode).to.equal(302)
-      expect(res.headers.location).to.equal(`${SHIELDS_URL}/size-32 B-brightgreen.svg`)
+      expect(res.headers.location).to.equal(`${SHIELDS_URL}/size-12 B-brightgreen.svg`)
     })
   })
 
@@ -51,7 +51,7 @@ describe('http://img.badgesize.io', () => {
       url: '/baxterthehacker/public-repo/changes/README.md.png'
     }).then((res) => {
       expect(res.statusCode).to.equal(302)
-      expect(res.headers.location).to.equal(`${SHIELDS_URL}/size-32 B-brightgreen.png`)
+      expect(res.headers.location).to.equal(`${SHIELDS_URL}/size-12 B-brightgreen.png`)
     })
   })
 
@@ -61,7 +61,7 @@ describe('http://img.badgesize.io', () => {
       url: '/baxterthehacker/public-repo/changes/README.md'
     }).then((res) => {
       expect(res.statusCode).to.equal(302)
-      expect(res.headers.location).to.equal(`${SHIELDS_URL}/size-32 B-brightgreen.svg`)
+      expect(res.headers.location).to.equal(`${SHIELDS_URL}/size-12 B-brightgreen.svg`)
     })
   })
 
@@ -71,7 +71,7 @@ describe('http://img.badgesize.io', () => {
       url: '/baxterthehacker/public-repo/master/README.md?label=taille'
     }).then((res) => {
       expect(res.statusCode).to.equal(302)
-      expect(res.headers.location).to.equal(`${SHIELDS_URL}/taille-34 B-brightgreen.svg`)
+      expect(res.headers.location).to.equal(`${SHIELDS_URL}/taille-14 B-brightgreen.svg`)
     })
   })
 

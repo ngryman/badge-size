@@ -10,7 +10,7 @@ const SHIELDS_URL = 'https://img.shields.io/badge'
 /**
  * Parse infos from request parameters and build a baton.
  *
- * @param  {ServerRequest} req Request.
+ * @param  {ServerRequest} req
  * @return {Promise}
  */
 function parse(req) {
@@ -20,6 +20,7 @@ function parse(req) {
       value: 'unknown',
       extension: 'svg',
       size: 0,
+      compression: req.query.compression,
       compressedSize: 0
     }
 
@@ -51,7 +52,11 @@ function parse(req) {
  */
 function fetch(baton) {
   return new Promise(function(resolve, reject) {
-    got[baton.compression ? 'get' : 'head'](baton.url, function(err, data, res) {
+    got[baton.compression ? 'get' : 'head'](baton.url, {
+      headers: {
+        'accept-encoding': 'identity'
+      }
+    }, function(err, data, res) {
       if (err) return reject(baton)
       baton.size = Number(res.headers['content-length'])
       baton.data = data
