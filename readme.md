@@ -32,7 +32,7 @@ It works like any other badge service you may know and it's configurable in the 
 Here is the general pattern of a typical `badge-size` url:
 
 ```
-https://img.badgesize.io/:filepath[.svg|png|jpg][?compress=gzip][&label=string]
+https://img.badgesize.io/:filepath[.svg|png|jpg][?compression=gzip][&label=string]
 ```
 
 #### `:filepath`
