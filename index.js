@@ -102,15 +102,21 @@ function pretty(baton) {
 }
 
 /**
- * Redirect to shields.io to serve the badge image.
+ * Proxy response from shields.io to serve the badge image.
  *
  * @param  {Reply} reply
  * @return {function}
  */
-function redirect(reply) {
+function proxy(reply) {
   return function(baton) {
     let badgeUrl = `${SHIELDS_URL}/${baton.label}-${baton.value}-brightgreen.${baton.extension}`
-    reply.redirect(badgeUrl)
+    reply.proxy({
+      uri: badgeUrl,
+      passThrough: true,
+      onResponse: function(error, res, request, reply, settings, ttl) {
+        reply(res).header('X-Uri', badgeUrl)
+      }
+    })
   }
 }
 
@@ -128,8 +134,8 @@ function badgeHandler(req, reply) {
   .then(fetch)
   .then(compressed)
   .then(pretty)
-  .then(redirect(reply))
-  .catch(redirect(reply))
+  .then(proxy(reply))
+  .catch(proxy(reply))
 }
 
 /** Configure & start the server. */
