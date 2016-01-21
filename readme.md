@@ -68,14 +68,25 @@ Optional text to display in the badge instead of *size* / *gzip size*.
 Optional background color. By default it's `brightgreen`.<br>
 You can specify hexadecimal colors, without the dash (i.e `bada55`) or one of the following named
 colors:
- - ![](https://img.shields.io/badge/-brightgreen-brightgreen.svg)
- - ![](https://img.shields.io/badge/-green-green.svg)
- - ![](https://img.shields.io/badge/-yellowgreen-yellowgreen.svg)
- - ![](https://img.shields.io/badge/-yellow-yellow.svg)
- - ![](https://img.shields.io/badge/-orange-orange.svg)
- - ![](https://img.shields.io/badge/-red-red.svg)
- - ![](https://img.shields.io/badge/-lightgrey-lightgrey.svg)
- - ![](https://img.shields.io/badge/-blue-blue.svg)
+
+![](https://img.shields.io/badge/color-brightgreen-brightgreen.svg)
+![](https://img.shields.io/badge/color-green-green.svg)
+![](https://img.shields.io/badge/color-yellowgreen-yellowgreen.svg)
+![](https://img.shields.io/badge/color-yellow-yellow.svg)
+![](https://img.shields.io/badge/color-orange-orange.svg)
+![](https://img.shields.io/badge/color-red-red.svg)
+![](https://img.shields.io/badge/color-lightgrey-lightgrey.svg)
+![](https://img.shields.io/badge/color-blue-blue.svg)
+
+#### `[&style=string]`
+
+Optional style. By default it's `flat`.<br>
+You can specify one of the following:
+
+![](https://img.shields.io/badge/-brightgreen-brightgreen.svg)
+![](https://img.shields.io/badge/-green-green.svg)
+![](https://img.shields.io/badge/-yellowgreen-yellowgreen.svg)
+![](https://img.shields.io/badge/-yellow-yellow.svg)
 
 
 ## License

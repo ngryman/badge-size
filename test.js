@@ -85,6 +85,16 @@ describe('http://img.badgesize.io', () => {
     })
   })
 
+  it('accepts a custom style', function() {
+    return server.injectThen({
+      method: 'GET',
+      url: '/baxterthehacker/public-repo/master/README.md?style=flat'
+    }).then((res) => {
+      expect(res.statusCode).to.equal(200)
+      expect(res.headers['x-uri']).to.equal(`${SHIELDS_URL}/size-14 B-brightgreen.svg?style=flat`)
+    })
+  })
+
   context('with invalid arguments', () => {
 
     it('sets size to undefined', () => {
