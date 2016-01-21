@@ -75,6 +75,16 @@ describe('http://img.badgesize.io', () => {
     })
   })
 
+  it('accepts a custom color', function() {
+    return server.injectThen({
+      method: 'GET',
+      url: '/baxterthehacker/public-repo/master/README.md?color=bada55'
+    }).then((res) => {
+      expect(res.statusCode).to.equal(200)
+      expect(res.headers['x-uri']).to.equal(`${SHIELDS_URL}/size-14 B-bada55.svg`)
+    })
+  })
+
   context('with invalid arguments', () => {
 
     it('sets size to undefined', () => {

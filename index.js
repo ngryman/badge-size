@@ -17,6 +17,7 @@ function parse(req) {
   return new Promise(function(resolve, reject) {
     let baton = {
       label: req.query.label || ((req.query.compression ? 'gzip ' : '') + 'size'),
+      color: req.query.color || 'brightgreen',
       value: 'unknown',
       extension: 'svg',
       size: 0,
@@ -109,7 +110,7 @@ function pretty(baton) {
  */
 function proxy(reply) {
   return function(baton) {
-    let badgeUrl = `${SHIELDS_URL}/${baton.label}-${baton.value}-brightgreen.${baton.extension}`
+    let badgeUrl = `${SHIELDS_URL}/${baton.label}-${baton.value}-${baton.color}.${baton.extension}`
     reply.proxy({
       uri: badgeUrl,
       passThrough: true,

@@ -63,6 +63,20 @@ file would take on the wire, assuming the server has `gzip` compression enabled.
 
 Optional text to display in the badge instead of *size* / *gzip size*.
 
+#### `[&color=string]`
+
+Optional background color. By default it's `brightgreen`.<br>
+You can specify hexadecimal colors, without the dash (i.e `bada55`) or one of the following named
+colors:
+ - ![](https://img.shields.io/badge/-brightgreen-brightgreen.svg)
+ - ![](https://img.shields.io/badge/-green-green.svg)
+ - ![](https://img.shields.io/badge/-yellowgreen-yellowgreen.svg)
+ - ![](https://img.shields.io/badge/-yellow-yellow.svg)
+ - ![](https://img.shields.io/badge/-orange-orange.svg)
+ - ![](https://img.shields.io/badge/-red-red.svg)
+ - ![](https://img.shields.io/badge/-lightgrey-lightgrey.svg)
+ - ![](https://img.shields.io/badge/-blue-blue.svg)
+
 
 ## License
 
