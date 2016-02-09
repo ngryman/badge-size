@@ -32,7 +32,7 @@ It works like any other badge service you may know and it's configurable in the 
 Here is the general pattern of a typical `badge-size` url:
 
 ```
-https://img.badgesize.io/:filepath[.svg|png|jpg][?compression=gzip][&label=string]
+https://badge-size.herokuapp.com/:filepath[.svg|png|jpg][?compression=gzip][&label=string]
 ```
 
 #### `:filepath`
@@ -48,7 +48,7 @@ For example if I want to point to this repository `index.js`, it would be:
 
 `https://github.com/`**`ngryman/badge-size/master/index.js`**
 
-Note that the branch name mandatory.
+Note that the branch name is mandatory.
 
 #### `[.svg|png|jpg]`
 
