@@ -1,4 +1,5 @@
 # project
+.nyc_output
 .todo
 
 # node

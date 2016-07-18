@@ -1,7 +1,9 @@
-import got from 'got'
-import gzipSize from 'gzip-size'
-import Hapi from 'hapi'
-import prettyBytes from 'pretty-bytes'
+'use strict'
+
+const got = require('got')
+const gzipSize = require('gzip-size')
+const Hapi = require('hapi')
+const prettyBytes = require('pretty-bytes')
 
 /** URLs of services in use. */
 const GITHUB_URL = 'https://raw.githubusercontent.com'
@@ -14,7 +16,7 @@ const SHIELDS_URL = 'https://img.shields.io/badge'
  * @return {Promise}
  */
 function parse(req) {
-  return new Promise(function(resolve, reject) {
+  return new Promise((resolve, reject) => {
     let baton = {
       label: req.query.label || ((req.query.compression ? 'gzip ' : '') + 'size'),
       color: req.query.color || 'brightgreen',
@@ -53,12 +55,12 @@ function parse(req) {
  * @return {Promise}
  */
 function fetch(baton) {
-  return new Promise(function(resolve, reject) {
+  return new Promise((resolve, reject) => {
     got[baton.compression ? 'get' : 'head'](baton.url, {
       headers: {
         'accept-encoding': 'identity'
       }
-    }, function(err, data, res) {
+    }, (err, data, res) => {
       if (err) return reject(baton)
       baton.size = Number(res.headers['content-length'])
       baton.data = data
@@ -76,18 +78,18 @@ function fetch(baton) {
 function compressed(baton) {
   if (!baton.compression) return baton
 
-  return new Promise(function(resolve, reject) {
+  return new Promise((resolve, reject) => {
     baton.compressedSize = baton.size
 
     if ('gzip' === baton.compression) {
-      gzipSize(baton.data, function(err, size) {
+      gzipSize(baton.data, (err, size) => {
         if (err) return reject(baton)
         baton.compressedSize = size
         resolve(baton)
       })
     }
     else {
-      resolve(baton)
+      reject(baton)
     }
   })
 }
@@ -117,7 +119,7 @@ function proxy(reply) {
     reply.proxy({
       uri: badgeUrl,
       passThrough: true,
-      onResponse: function(error, res, request, reply, settings, ttl) {
+      onResponse: (error, res) => {
         reply(res).header('X-Uri', badgeUrl)
       }
     })
@@ -153,4 +155,4 @@ server.route({
 server.start()
 
 /** Convenience export for tests. */
-export default server
+module.exports = server

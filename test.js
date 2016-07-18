@@ -1,112 +1,111 @@
-/*eslint-env mocha */
-/*eslint-disable padded-blocks, no-unused-expressions */
-
-import server from './'
-import { expect } from 'chai'
+import test from 'ava'
 import injectThen from 'inject-then'
+import server from './'
 
 const SHIELDS_URL = 'https://img.shields.io/badge'
 
-describe('http://img.badgesize.io', () => {
+test.before.cb(t => {
+  server.register(injectThen, t.end)
+})
 
-  before((done) => {
-    server.register(injectThen, done)
+test.after(() => server.stop())
+
+test('redirect to shields.io', async t => {
+  const res = await server.injectThen({
+    method: 'GET',
+    url: '/baxterthehacker/public-repo/master/README.md.svg'
   })
 
-  after(() => server.stop())
+  t.is(res.statusCode, 200)
+  t.is(res.headers['x-uri'], `${SHIELDS_URL}/size-14 B-brightgreen.svg`)
+})
 
-  it('redirects to shields.io', () => {
-    return server.injectThen({
-      method: 'GET',
-      url: '/baxterthehacker/public-repo/master/README.md.svg'
-    }).then((res) => {
-      expect(res.statusCode).to.equal(200)
-      expect(res.headers['x-uri']).to.equal(`${SHIELDS_URL}/size-14 B-brightgreen.svg`)
-    })
+test('accept gzip compression', async t => {
+  const res = await server.injectThen({
+    method: 'GET',
+    url: '/baxterthehacker/public-repo/master/README.md.svg?compression=gzip'
   })
 
-  it('accepts gzip compression', () => {
-    return server.injectThen({
-      method: 'GET',
-      url: '/baxterthehacker/public-repo/master/README.md.svg?compression=gzip'
-    }).then((res) => {
-      expect(res.statusCode).to.equal(200)
-      expect(res.headers['x-uri']).to.equal(`${SHIELDS_URL}/gzip size-34 B-brightgreen.svg`)
-    })
+  t.is(res.statusCode, 200)
+  t.is(res.headers['x-uri'], `${SHIELDS_URL}/gzip size-34 B-brightgreen.svg`)
+})
+
+test.skip('reject other types of compression', async t => {
+  const res = await server.injectThen({
+    method: 'GET',
+    url: '/baxterthehacker/public-repo/master/README.md.svg?compression=lzma'
   })
 
-  it('accepts other branch names', () => {
-    return server.injectThen({
-      method: 'GET',
-      url: '/baxterthehacker/public-repo/changes/README.md.svg'
-    }).then((res) => {
-      expect(res.statusCode).to.equal(200)
-      expect(res.headers['x-uri']).to.equal(`${SHIELDS_URL}/size-12 B-brightgreen.svg`)
-    })
+  t.is(res.statusCode, 200)
+  t.is(res.headers['x-uri'], `${SHIELDS_URL}/gzip size-34 B-brightgreen.svg`)
+})
+
+test('accept other branch names', async t => {
+  const res = await server.injectThen({
+    method: 'GET',
+    url: '/baxterthehacker/public-repo/changes/README.md.svg'
   })
 
-  it('allows other image extensions', () => {
-    return server.injectThen({
-      method: 'GET',
-      url: '/baxterthehacker/public-repo/changes/README.md.png'
-    }).then((res) => {
-      expect(res.statusCode).to.equal(200)
-      expect(res.headers['x-uri']).to.equal(`${SHIELDS_URL}/size-12 B-brightgreen.png`)
-    })
+  t.is(res.statusCode, 200)
+  t.is(res.headers['x-uri'], `${SHIELDS_URL}/size-12 B-brightgreen.svg`)
+})
+
+test('allow other image extensions', async t => {
+  const res = await server.injectThen({
+    method: 'GET',
+    url: '/baxterthehacker/public-repo/changes/README.md.png'
   })
 
-  it('defaults to svg if no comprehensible extension is found', () => {
-    return server.injectThen({
-      method: 'GET',
-      url: '/baxterthehacker/public-repo/changes/README.md'
-    }).then((res) => {
-      expect(res.statusCode).to.equal(200)
-      expect(res.headers['x-uri']).to.equal(`${SHIELDS_URL}/size-12 B-brightgreen.svg`)
-    })
+  t.is(res.statusCode, 200)
+  t.is(res.headers['x-uri'], `${SHIELDS_URL}/size-12 B-brightgreen.png`)
+})
+
+test('default to svg if no comprehensible extension is found', async t => {
+  const res = await server.injectThen({
+    method: 'GET',
+    url: '/baxterthehacker/public-repo/changes/README.md'
   })
 
-  it('accepts a custom label', () => {
-    return server.injectThen({
-      method: 'GET',
-      url: '/baxterthehacker/public-repo/master/README.md?label=taille'
-    }).then((res) => {
-      expect(res.statusCode).to.equal(200)
-      expect(res.headers['x-uri']).to.equal(`${SHIELDS_URL}/taille-14 B-brightgreen.svg`)
-    })
+  t.is(res.statusCode, 200)
+  t.is(res.headers['x-uri'], `${SHIELDS_URL}/size-12 B-brightgreen.svg`)
+})
+
+test('accept a custom label', async t => {
+  const res = await server.injectThen({
+    method: 'GET',
+    url: '/baxterthehacker/public-repo/master/README.md?label=taille'
   })
 
-  it('accepts a custom color', function() {
-    return server.injectThen({
-      method: 'GET',
-      url: '/baxterthehacker/public-repo/master/README.md?color=bada55'
-    }).then((res) => {
-      expect(res.statusCode).to.equal(200)
-      expect(res.headers['x-uri']).to.equal(`${SHIELDS_URL}/size-14 B-bada55.svg`)
-    })
+  t.is(res.statusCode, 200)
+  t.is(res.headers['x-uri'], `${SHIELDS_URL}/taille-14 B-brightgreen.svg`)
+})
+
+test('accept a custom color', async t => {
+  const res = await server.injectThen({
+    method: 'GET',
+    url: '/baxterthehacker/public-repo/master/README.md?color=bada55'
   })
 
-  it('accepts a custom style', function() {
-    return server.injectThen({
-      method: 'GET',
-      url: '/baxterthehacker/public-repo/master/README.md?style=flat'
-    }).then((res) => {
-      expect(res.statusCode).to.equal(200)
-      expect(res.headers['x-uri']).to.equal(`${SHIELDS_URL}/size-14 B-brightgreen.svg?style=flat`)
-    })
+  t.is(res.statusCode, 200)
+  t.is(res.headers['x-uri'], `${SHIELDS_URL}/size-14 B-bada55.svg`)
+})
+
+test('accept a custom style', async t => {
+  const res = await server.injectThen({
+    method: 'GET',
+    url: '/baxterthehacker/public-repo/master/README.md?style=flat'
   })
 
-  context('with invalid arguments', () => {
+  t.is(res.statusCode, 200)
+  t.is(res.headers['x-uri'], `${SHIELDS_URL}/size-14 B-brightgreen.svg?style=flat`)
+})
 
-    it('sets size to undefined', () => {
-      return server.injectThen({
-        method: 'GET',
-        url: '/non-sense/query'
-      }).then((res) => {
-        expect(res.statusCode).to.equal(200)
-        expect(res.headers['x-uri']).to.equal(`${SHIELDS_URL}/size-unknown-brightgreen.svg`)
-      })
-    })
-
+test('set size to undefined', async t => {
+  const res = await server.injectThen({
+    method: 'GET',
+    url: '/non-sense/query'
   })
 
+  t.is(res.statusCode, 200)
+  t.is(res.headers['x-uri'], `${SHIELDS_URL}/size-unknown-brightgreen.svg`)
 })

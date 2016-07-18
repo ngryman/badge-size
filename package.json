@@ -14,11 +14,17 @@
   ],
   "scripts": {
     "lint": "eslint *.js",
-    "spec": "mocha --compilers js:babel/register --slow 10000 test.js",
-    "start": "babel-node index.js",
-    "test": "npm run lint -s && npm run spec -s",
-    "watch": "onchange *.js -- npm test"
+    "unit": "nyc ava",
+    "start": "node index.js",
+    "test": "npm run lint -s && npm run unit -s",
+    "dev": "npm run unit -- --watch",
+    "coverage": "nyc report --reporter=text-lcov | codecov",
+    "check-coverage": "nyc check-coverage --lines 95 --functions 95 --branches 85"
   },
+  "precommit": [
+    "test",
+    "check-coverage"
+  ],
   "keywords": [
     "badge",
     "ci",
@@ -33,18 +39,20 @@
     "weight"
   ],
   "dependencies": {
-    "babel": "^5.6.23",
     "got": "^3.3.1",
     "gzip-size": "^2.0.3",
     "hapi": "^8.8.0",
     "pretty-bytes": "^2.0.1"
   },
   "devDependencies": {
-    "chai": "^3.0.0",
-    "eslint": "^0.24.0",
-    "eslint-config-ngryman": "^0.2.1",
+    "ava": "^0.15.2",
+    "babel-eslint": "^6.1.2",
+    "codecov.io": "^0.1.6",
+    "eslint": "^3.1.0",
+    "eslint-config-ngryman": "^1.1.0",
     "inject-then": "^2.0.0",
-    "mocha": "^2.2.5",
-    "onchange": "^1.1.0"
+    "nyc": "^7.0.0",
+    "onchange": "^1.1.0",
+    "pre-commit": "^1.1.3"
   }
 }
