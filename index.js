@@ -1,9 +1,7 @@
-'use strict'
-
-const got = require('got')
-const gzipSize = require('gzip-size')
-const Hapi = require('hapi')
-const prettyBytes = require('pretty-bytes')
+import url from 'url'
+import got from 'got'
+import gzipSize from 'gzip-size'
+import prettyBytes from 'pretty-bytes'
 
 /** URLs of services in use. */
 const GITHUB_URL = 'https://raw.githubusercontent.com'
@@ -17,34 +15,36 @@ const SHIELDS_URL = 'https://img.shields.io/badge'
  */
 function parse(req) {
   return new Promise((resolve, reject) => {
+    const { pathname, query } = url.parse(req.url, true)
+
     let baton = {
-      label: req.query.label || ((req.query.compression ? 'gzip ' : '') + 'size'),
-      color: req.query.color || 'brightgreen',
-      style: req.query.style || null,
+      label: query.label || ((query.compression ? 'gzip ' : '') + 'size'),
+      color: query.color || 'brightgreen',
+      style: query.style || null,
       value: 'unknown',
       extension: 'svg',
       size: 0,
-      compression: req.query.compression,
+      compression: query.compression,
       compressedSize: 0,
       err: null
     }
 
     // empty path
-    if (!req.params.path) {
+    if ('/' === pathname) {
       baton.err = new Error('Empty path')
       return reject(baton)
     }
 
     // url and image extension
-    baton.url = `${GITHUB_URL}/${req.params.path || ''}`
-    let index = req.params.path.lastIndexOf('.')
+    baton.url = `${GITHUB_URL}${pathname || ''}`
+    let index = pathname.lastIndexOf('.')
     if (-1 !== index) {
-      baton.extension = req.params.path.substr(index + 1)
+      baton.extension = pathname.substr(index + 1)
       if (-1 === 'svg|png|jpg'.indexOf(baton.extension)) {
         baton.extension = 'svg'
       }
       else {
-        baton.url = `${GITHUB_URL}/${req.params.path.substr(0, index)}`
+        baton.url = `${GITHUB_URL}${pathname.substr(0, index)}`
       }
     }
 
@@ -64,15 +64,13 @@ function fetch(baton) {
       headers: {
         'accept-encoding': 'identity'
       }
-    }, (err, data, res) => {
-      if (err) {
-        baton.err = 'Unknown path'
-        return reject(baton)
-      }
-
+    }).then(res => {
       baton.size = Number(res.headers['content-length'])
-      baton.data = data
+      baton.data = res.body
       resolve(baton)
+    }).catch(err => {
+      baton.err = 'Unknown path'
+      return reject(baton)
     })
   })
 }
@@ -122,23 +120,29 @@ function pretty(baton) {
 /**
  * Proxy response from shields.io to serve the badge image.
  *
- * @param  {Reply} reply
+ * @param  {ServerResponse} res
  * @return {function}
  */
-function proxy(reply) {
+function proxy(res) {
   return function(baton) {
     if (baton.err) {
       baton.value = ('string' === typeof baton.err ? baton.err : baton.err.message).toLowerCase()
       baton.color = 'lightgrey'
     }
 
-    let badgeUrl = `${SHIELDS_URL}/${baton.label}-${baton.value}-${baton.color}.${baton.extension}`
+    let pathname = encodeURI(`/${baton.label}-${baton.value}-${baton.color}.${baton.extension}`)
+    let badgeUrl = `${SHIELDS_URL}${pathname}`
     if (baton.style) badgeUrl += `?style=${baton.style}`
 
-    reply.redirect(badgeUrl)
-      // explicitly tell camo to not cache this request
-      // note that 0 expires are ignored by hapi in route config
-      .header('expires', 0)
+    res.writeHead(303, {
+      'location': badgeUrl,
+      // align on github raw cdn which caches content for 5 minutes
+      'cache-control': 'max-age=300',
+      // set expires to avoid github caching
+      //   https://github.com/github/markup/issues/224#issuecomment-48532178
+      'expires': new Date(Date.now() + 300 * 1000).toUTCString()
+    })
+    res.end()
   }
 }
 
@@ -149,26 +153,14 @@ function proxy(reply) {
  * It redirects to a shields.io badge of type: `size-{size}-brightgreen`.
  *
  * @param  {ServerRequest} req
- * @param  {Reply} reply
+ * @param  {ServerResponse} res
+ * @return {Promise}
  */
-function badgeHandler(req, reply) {
-  parse(req)
-  .then(fetch)
-  .then(compressed)
-  .then(pretty)
-  .then(proxy(reply))
-  .catch(proxy(reply))
+export default function badgeSize(req, res) {
+  return parse(req)
+    .then(fetch)
+    .then(compressed)
+    .then(pretty)
+    .then(proxy(res))
+    .catch(proxy(res))
 }
-
-/** Configure & start the server. */
-let server = new Hapi.Server()
-server.connection({ port: process.env.PORT || 3000 })
-server.route({
-  method: 'GET',
-  path: '/{path*}',
-  handler: badgeHandler
-})
-server.start()
-
-/** Convenience export for tests. */
-module.exports = server
