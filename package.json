@@ -40,9 +40,9 @@
   ],
   "dependencies": {
     "got": "^6.3.0",
-    "gzip-size": "^2.0.3",
+    "gzip-size": "^3.0.0",
     "micro": "^4.1.1",
-    "pretty-bytes": "^2.0.1"
+    "pretty-bytes": "^3.0.1"
   },
   "devDependencies": {
     "ava": "^0.15.2",
