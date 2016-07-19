@@ -118,12 +118,12 @@ function pretty(baton) {
 }
 
 /**
- * Proxy response from shields.io to serve the badge image.
+ * Redirect to shields.io to serve the badge image.
  *
  * @param  {ServerResponse} res
  * @return {function}
  */
-function proxy(res) {
+function redirect(res) {
   return function(baton) {
     if (baton.err) {
       baton.value = ('string' === typeof baton.err ? baton.err : baton.err.message).toLowerCase()
@@ -161,6 +161,6 @@ export default function badgeSize(req, res) {
     .then(fetch)
     .then(compressed)
     .then(pretty)
-    .then(proxy(res))
-    .catch(proxy(res))
+    .then(redirect(res))
+    .catch(redirect(res))
 }
