@@ -19,7 +19,7 @@
     "test": "npm run lint -s && npm run unit -s",
     "dev": "npm run unit -- --watch",
     "coverage": "nyc report --reporter=text-lcov | codecov",
-    "check-coverage": "nyc check-coverage --lines 95 --functions 95 --branches 85"
+    "check-coverage": "nyc check-coverage --lines 95 --functions 95 --branches 95"
   },
   "precommit": [
     "test",

@@ -16,8 +16,8 @@ test('redirect to shields.io', async t => {
     url: '/baxterthehacker/public-repo/master/README.md.svg'
   })
 
-  t.is(res.statusCode, 200)
-  t.is(res.headers['x-uri'], `${SHIELDS_URL}/size-14 B-brightgreen.svg`)
+  t.is(res.statusCode, 302)
+  t.is(res.headers.location, `${SHIELDS_URL}/size-14 B-brightgreen.svg`)
 })
 
 test('accept gzip compression', async t => {
@@ -26,18 +26,8 @@ test('accept gzip compression', async t => {
     url: '/baxterthehacker/public-repo/master/README.md.svg?compression=gzip'
   })
 
-  t.is(res.statusCode, 200)
-  t.is(res.headers['x-uri'], `${SHIELDS_URL}/gzip size-34 B-brightgreen.svg`)
-})
-
-test.skip('reject other types of compression', async t => {
-  const res = await server.injectThen({
-    method: 'GET',
-    url: '/baxterthehacker/public-repo/master/README.md.svg?compression=lzma'
-  })
-
-  t.is(res.statusCode, 200)
-  t.is(res.headers['x-uri'], `${SHIELDS_URL}/gzip size-34 B-brightgreen.svg`)
+  t.is(res.statusCode, 302)
+  t.is(res.headers.location, `${SHIELDS_URL}/gzip size-34 B-brightgreen.svg`)
 })
 
 test('accept other branch names', async t => {
@@ -46,8 +36,8 @@ test('accept other branch names', async t => {
     url: '/baxterthehacker/public-repo/changes/README.md.svg'
   })
 
-  t.is(res.statusCode, 200)
-  t.is(res.headers['x-uri'], `${SHIELDS_URL}/size-12 B-brightgreen.svg`)
+  t.is(res.statusCode, 302)
+  t.is(res.headers.location, `${SHIELDS_URL}/size-12 B-brightgreen.svg`)
 })
 
 test('allow other image extensions', async t => {
@@ -56,8 +46,8 @@ test('allow other image extensions', async t => {
     url: '/baxterthehacker/public-repo/changes/README.md.png'
   })
 
-  t.is(res.statusCode, 200)
-  t.is(res.headers['x-uri'], `${SHIELDS_URL}/size-12 B-brightgreen.png`)
+  t.is(res.statusCode, 302)
+  t.is(res.headers.location, `${SHIELDS_URL}/size-12 B-brightgreen.png`)
 })
 
 test('default to svg if no comprehensible extension is found', async t => {
@@ -66,8 +56,8 @@ test('default to svg if no comprehensible extension is found', async t => {
     url: '/baxterthehacker/public-repo/changes/README.md'
   })
 
-  t.is(res.statusCode, 200)
-  t.is(res.headers['x-uri'], `${SHIELDS_URL}/size-12 B-brightgreen.svg`)
+  t.is(res.statusCode, 302)
+  t.is(res.headers.location, `${SHIELDS_URL}/size-12 B-brightgreen.svg`)
 })
 
 test('accept a custom label', async t => {
@@ -76,8 +66,8 @@ test('accept a custom label', async t => {
     url: '/baxterthehacker/public-repo/master/README.md?label=taille'
   })
 
-  t.is(res.statusCode, 200)
-  t.is(res.headers['x-uri'], `${SHIELDS_URL}/taille-14 B-brightgreen.svg`)
+  t.is(res.statusCode, 302)
+  t.is(res.headers.location, `${SHIELDS_URL}/taille-14 B-brightgreen.svg`)
 })
 
 test('accept a custom color', async t => {
@@ -86,8 +76,8 @@ test('accept a custom color', async t => {
     url: '/baxterthehacker/public-repo/master/README.md?color=bada55'
   })
 
-  t.is(res.statusCode, 200)
-  t.is(res.headers['x-uri'], `${SHIELDS_URL}/size-14 B-bada55.svg`)
+  t.is(res.statusCode, 302)
+  t.is(res.headers.location, `${SHIELDS_URL}/size-14 B-bada55.svg`)
 })
 
 test('accept a custom style', async t => {
@@ -96,16 +86,36 @@ test('accept a custom style', async t => {
     url: '/baxterthehacker/public-repo/master/README.md?style=flat'
   })
 
-  t.is(res.statusCode, 200)
-  t.is(res.headers['x-uri'], `${SHIELDS_URL}/size-14 B-brightgreen.svg?style=flat`)
+  t.is(res.statusCode, 302)
+  t.is(res.headers.location, `${SHIELDS_URL}/size-14 B-brightgreen.svg?style=flat`)
 })
 
-test('set size to undefined', async t => {
+test('reject empty paths', async t => {
+  const res = await server.injectThen({
+    method: 'GET',
+    url: '/'
+  })
+
+  t.is(res.statusCode, 302)
+  t.is(res.headers.location, `${SHIELDS_URL}/size-empty path-lightgrey.svg`)
+})
+
+test('reject invalid path', async t => {
   const res = await server.injectThen({
     method: 'GET',
     url: '/non-sense/query'
   })
 
-  t.is(res.statusCode, 200)
-  t.is(res.headers['x-uri'], `${SHIELDS_URL}/size-unknown-brightgreen.svg`)
+  t.is(res.statusCode, 302)
+  t.is(res.headers.location, `${SHIELDS_URL}/size-unknown path-lightgrey.svg`)
+})
+
+test('reject other types of compression', async t => {
+  const res = await server.injectThen({
+    method: 'GET',
+    url: '/baxterthehacker/public-repo/master/README.md.svg?compression=lzma'
+  })
+
+  t.is(res.statusCode, 302)
+  t.is(res.headers.location, `${SHIELDS_URL}/gzip size-unknown compression-lightgrey.svg`)
 })

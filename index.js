@@ -25,11 +25,15 @@ function parse(req) {
       extension: 'svg',
       size: 0,
       compression: req.query.compression,
-      compressedSize: 0
+      compressedSize: 0,
+      err: null
     }
 
     // empty path
-    if (!req.params.path) return reject(baton)
+    if (!req.params.path) {
+      baton.err = new Error('Empty path')
+      return reject(baton)
+    }
 
     // url and image extension
     baton.url = `${GITHUB_URL}/${req.params.path || ''}`
@@ -61,7 +65,11 @@ function fetch(baton) {
         'accept-encoding': 'identity'
       }
     }, (err, data, res) => {
-      if (err) return reject(baton)
+      if (err) {
+        baton.err = 'Unknown path'
+        return reject(baton)
+      }
+
       baton.size = Number(res.headers['content-length'])
       baton.data = data
       resolve(baton)
@@ -83,12 +91,18 @@ function compressed(baton) {
 
     if ('gzip' === baton.compression) {
       gzipSize(baton.data, (err, size) => {
-        if (err) return reject(baton)
+        /* istanbul ignore if  */
+        if (err) {
+          baton.err = err
+          return reject(baton)
+        }
+
         baton.compressedSize = size
         resolve(baton)
       })
     }
     else {
+      baton.err = 'Unknown compression'
       reject(baton)
     }
   })
@@ -113,16 +127,18 @@ function pretty(baton) {
  */
 function proxy(reply) {
   return function(baton) {
+    if (baton.err) {
+      baton.value = ('string' === typeof baton.err ? baton.err : baton.err.message).toLowerCase()
+      baton.color = 'lightgrey'
+    }
+
     let badgeUrl = `${SHIELDS_URL}/${baton.label}-${baton.value}-${baton.color}.${baton.extension}`
     if (baton.style) badgeUrl += `?style=${baton.style}`
 
-    reply.proxy({
-      uri: badgeUrl,
-      passThrough: true,
-      onResponse: (error, res) => {
-        reply(res).header('X-Uri', badgeUrl)
-      }
-    })
+    reply.redirect(badgeUrl)
+      // explicitly tell camo to not cache this request
+      // note that 0 expires are ignored by hapi in route config
+      .header('expires', 0)
   }
 }
 
