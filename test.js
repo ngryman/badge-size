@@ -32,6 +32,12 @@ test('redirect to shields.io', async t => {
   assert(t, res, '/size-14 B-brightgreen.svg')
 })
 
+test('accept any url', async t => {
+  const res = await request(t,
+    '/https://raw.githubusercontent.com/baxterthehacker/public-repo/master/README.md.svg')
+  assert(t, res, '/size-14 B-brightgreen.svg')
+})
+
 test('accept gzip compression', async t => {
   const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?compression=gzip')
   assert(t, res, '/gzip size-34 B-brightgreen.svg')
