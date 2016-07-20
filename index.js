@@ -35,8 +35,15 @@ function parse(req) {
       return reject(baton)
     }
 
-    // url and image extension
-    baton.url = `${GITHUB_URL}${pathname || ''}`
+    // url or github path
+    if (pathname.startsWith('/http')) {
+      baton.url = pathname.substr(1)
+    }
+    else {
+      baton.url = `${GITHUB_URL}${pathname}`
+    }
+
+    // image extension
     let index = pathname.lastIndexOf('.')
     if (-1 !== index) {
       baton.extension = pathname.substr(index + 1)
