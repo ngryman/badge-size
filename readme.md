@@ -89,6 +89,16 @@ You can specify one of the following:
 ![](https://img.shields.io/badge/style-social-brightgreen.svg?style=social)
 
 
+## Contributors
+
+[//]: contributor-faces
+<a href="https://github.com/ngryman"><img src="https://avatars.githubusercontent.com/u/892048?v=3" title="ngryman" width="80" height="80"></a>
+<a href="https://github.com/bfred-it"><img src="https://avatars.githubusercontent.com/u/1402241?v=3" title="bfred-it" width="80" height="80"></a>
+<a href="https://github.com/nathancahill"><img src="https://avatars.githubusercontent.com/u/1383872?v=3" title="nathancahill" width="80" height="80"></a>
+<a href="https://github.com/coopy"><img src="https://avatars.githubusercontent.com/u/794843?v=3" title="coopy" width="80" height="80"></a>
+[//]: contributor-faces
+
+
 ## License
 
 MIT © [Nicolas Gryman](http://ngryman.sh)
