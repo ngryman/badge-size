@@ -98,6 +98,8 @@ You can specify one of the following:
 <a href="https://github.com/coopy"><img src="https://avatars.githubusercontent.com/u/794843?v=3" title="coopy" width="80" height="80"></a>
 [//]: contributor-faces
 
+<sup>Generated with [contributors-faces](https://github.com/ngryman/contributor-faces).</sup>
+
 
 ## License
 
