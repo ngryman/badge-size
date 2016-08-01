@@ -19,11 +19,11 @@ their builds to their users. But you can use it for any other purpose of course 
 
  Badge       | URL
 :------------|:---------------------------------------------------------------------------------|
-Normal size  | ![](https://img.badgesize.io/ngryman/badge-size/master/index.js.svg)
-Gzipped size | ![](https://img.badgesize.io/ngryman/badge-size/master/index.js.svg?compression=gzip)
-Custom label | ![](https://img.badgesize.io/ngryman/badge-size/master/index.js.svg?label=As_tiny_as)
-PNG format   | ![](https://img.badgesize.io/ngryman/badge-size/master/index.js.png)
-JPG format   | ![](https://img.badgesize.io/ngryman/badge-size/master/index.js.jpg)
+Normal size  | ![](http://img.badgesize.io/ngryman/badge-size/master/index.js.svg)
+Gzipped size | ![](http://img.badgesize.io/ngryman/badge-size/master/index.js.svg?compression=gzip)
+Custom label | ![](http://img.badgesize.io/ngryman/badge-size/master/index.js.svg?label=As_tiny_as)
+PNG format   | ![](http://img.badgesize.io/ngryman/badge-size/master/index.js.png)
+JPG format   | ![](http://img.badgesize.io/ngryman/badge-size/master/index.js.jpg)
 
 
 ## Usage
@@ -32,7 +32,7 @@ It works like any other badge service you may know and it's configurable in the 
 Here is the general pattern of a typical `badge-size` url:
 
 ```
-https://img.badgesize.io/:filepath[.svg|png|jpg][?compression=gzip][&label=string]
+http://img.badgesize.io/:filepath[.svg|png|jpg][?compression=gzip][&label=string]
 ```
 
 #### `:filepath`
