@@ -47,7 +47,7 @@
     "pretty-bytes": "^3.0.1"
   },
   "devDependencies": {
-    "ava": "^0.15.2",
+    "ava": "^0.16.0",
     "babel": "^5.8.38",
     "babel-eslint": "^6.1.2",
     "codecov.io": "^0.1.6",
