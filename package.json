@@ -51,7 +51,7 @@
     "babel": "^5.8.38",
     "babel-eslint": "^6.1.2",
     "codecov.io": "^0.1.6",
-    "contributor-faces": "^0.1.1",
+    "contributor-faces": "^0.3.0",
     "eslint": "^3.1.0",
     "eslint-config-ngryman": "^1.1.0",
     "nyc": "^7.0.0",
