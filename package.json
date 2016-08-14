@@ -43,7 +43,7 @@
   "dependencies": {
     "got": "^6.3.0",
     "gzip-size": "^3.0.0",
-    "micro": "^5.0.0",
+    "micro": "^6.0.1",
     "pretty-bytes": "^3.0.1"
   },
   "devDependencies": {
