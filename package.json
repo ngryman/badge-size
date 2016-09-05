@@ -7,7 +7,7 @@
   "repository": "ngryman/badge-size",
   "main": "index.js",
   "engines": {
-    "node": ">=5"
+    "node": ">=6"
   },
   "files": [
     "index.js"
