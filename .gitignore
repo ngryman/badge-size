@@ -1,9 +1,10 @@
 # project
 .nyc_output
+coverage/
 .todo
 
 # node
-node_modules
+node_modules/
 npm-debug.log
 
 # OS
