@@ -1,7 +1,7 @@
-import url from 'url'
-import got from 'got'
-import gzipSize from 'gzip-size'
-import prettyBytes from 'pretty-bytes'
+const url = require('url')
+const got = require('got')
+const gzipSize = require('gzip-size')
+const prettyBytes = require('pretty-bytes')
 
 /** URLs of services in use. */
 const GITHUB_URL = 'https://raw.githubusercontent.com'
@@ -168,7 +168,7 @@ function redirect(res) {
  * @param  {ServerResponse} res
  * @return {Promise}
  */
-export default function badgeSize(req, res) {
+module.exports = function badgeSize(req, res) {
   return parse(req)
     .then(fetch)
     .then(compressed)
