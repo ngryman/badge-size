@@ -1,3 +1,4 @@
+/*eslint max-len: 0*/
 import test from 'ava'
 import micro from 'micro'
 import got from 'got'

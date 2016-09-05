@@ -133,11 +133,16 @@ function pretty(baton) {
 function redirect(res) {
   return function(baton) {
     if (baton.err) {
-      baton.value = ('string' === typeof baton.err ? baton.err : baton.err.message).toLowerCase()
+      baton.value = ('string' === typeof baton.err ?
+        baton.err :
+        baton.err.message
+      ).toLowerCase()
       baton.color = 'lightgrey'
     }
 
-    let pathname = encodeURI(`/${baton.label}-${baton.value}-${baton.color}.${baton.extension}`)
+    let pathname = encodeURI(
+      `/${baton.label}-${baton.value}-${baton.color}.${baton.extension}`
+    )
     let badgeUrl = `${SHIELDS_URL}${pathname}`
     if (baton.style) badgeUrl += `?style=${baton.style}`
 
