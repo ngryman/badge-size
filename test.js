@@ -3,7 +3,6 @@ import test from 'ava'
 import micro from 'micro'
 import got from 'got'
 import listen from 'test-listen'
-import 'babel/register'
 import badgeSize from './'
 
 const SHIELDS_URL = 'https://img.shields.io/badge'

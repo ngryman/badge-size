@@ -1,6 +1,5 @@
 {
   "extends": "ngryman",
-  "parser": "babel-eslint",
   "rules": {
     "handle-callback-err": 0
   }
