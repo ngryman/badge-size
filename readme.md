@@ -37,7 +37,9 @@ http://img.badgesize.io/:filepath[.svg|png|jpg][?compression=gzip][&label=string
 
 #### `:filepath`
 
-It's the url of your file on `github` when you browse it in the source explorer, minus `blob/` part.
+Relative URL of file on GitHub of any absolute URL if hosted elsewhere.
+
+The format of the GitHub URL is the same as when you browse it in the source explorer, minus `blob/` part.
 Here is its typical form:
 
 ```md
