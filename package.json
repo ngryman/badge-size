@@ -47,7 +47,7 @@
     "pretty-bytes": "^4.0.2"
   },
   "devDependencies": {
-    "ava": "^0.18.1",
+    "ava": "^0.19.0",
     "codecov.io": "^0.1.6",
     "contributor-faces": "^1.0.0",
     "eslint": "^3.7.0",
