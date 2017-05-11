@@ -1,5 +1,7 @@
 # badge-size [![npm][npm-image]][npm-url] [![travis][travis-image]][travis-url]
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ngryman/badge-size.svg)](https://greenkeeper.io/)
+
 [npm-image]: https://img.shields.io/npm/v/badge-size.svg?style=flat
 [npm-url]: https://npmjs.org/package/badge-size
 [travis-image]: https://img.shields.io/travis/ngryman/badge-size.svg?style=flat
