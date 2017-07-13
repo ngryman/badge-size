@@ -87,3 +87,28 @@ test('reject other types of compression', async t => {
   const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?compression=lzma')
   assert(t, res, '/gzip size-unknown compression-lightgrey.svg')
 })
+
+test('Size is valid', async t => {
+  const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?pass=100000&fail=200000')
+  assert(t, res, '/size-14 B-brightgreen.svg')
+})
+
+test('Single param is used if fail param is omitted', async t => {
+  const res2 = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?pass=1')
+  assert(t, res2, '/size-14 B-red.svg')
+})
+
+test('Single param is used if pass param is omitted', async t => {
+  const res3 = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?fail=1')
+  assert(t, res3, '/size-14 B-red.svg')
+})
+
+test('Color is red if size greater than fail threshold', async t => {
+  const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?pass=1&fail=1')
+  assert(t, res, '/size-14 B-red.svg')
+})
+
+test('Color is yellow if size greater than pass threshold but less than fail threshold', async t => {
+  const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?pass=1&fail=10000')
+  assert(t, res, '/size-14 B-yellow.svg')
+})

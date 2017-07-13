@@ -19,14 +19,26 @@ function parse(req) {
 
     let baton = {
       label: query.label || ((query.compression ? 'gzip ' : '') + 'size'),
-      color: query.color || 'brightgreen',
+      color: query.color || null,
       style: query.style || null,
+      pass: query.pass || query.fail || Infinity,
+      fail: query.fail || query.pass || Infinity,
       value: 'unknown',
       extension: 'svg',
       size: 0,
       compression: query.compression,
       compressedSize: 0,
-      err: null
+      err: null,
+      updateColor: function() {
+        if (!this.color) {
+          let thresh = [this.pass, this.fail, this.size].sort((a, b) => a - b)
+          switch (this.size) {
+            case (thresh[0]) : this.color = 'brightgreen' ; break
+            case (thresh[1]) : this.color = 'yellow' ; break
+            case (thresh[2]) : this.color = 'red' ; break
+          }
+        }
+      }
     }
 
     // empty path
@@ -74,6 +86,7 @@ function fetch(baton) {
     }).then(res => {
       baton.size = Number(res.headers['content-length'])
       baton.data = res.body
+      baton.updateColor()
       resolve(baton)
     }).catch(err => {
       baton.err = 'Unknown path'
