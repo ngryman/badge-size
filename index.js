@@ -21,6 +21,8 @@ function parse(req) {
       label: query.label || ((query.compression ? 'gzip ' : '') + 'size'),
       color: query.color || 'brightgreen',
       style: query.style || null,
+      max: query.max || null,
+      softmax: query.softmax || null,
       value: 'unknown',
       extension: 'svg',
       size: 0,
@@ -125,6 +127,25 @@ function pretty(baton) {
 }
 
 /**
+ * Set color based on size.
+ *
+ * @param  {object} baton
+ * @return {object}
+ */
+function updateColor(baton) {
+  if (!baton.max) return baton
+
+  if (baton.size > baton.max) {
+    baton.color = 'red'
+    if (baton.softmax && baton.size < baton.softmax) {
+      baton.color = 'yellow'
+    }
+  }
+
+  return baton
+}
+
+/**
  * Redirect to shields.io to serve the badge image.
  *
  * @param  {ServerResponse} res
@@ -173,6 +194,7 @@ module.exports = function badgeSize(req, res) {
     .then(fetch)
     .then(compressed)
     .then(pretty)
+    .then(updateColor)
     .then(redirect(res))
     .catch(redirect(res))
 }
