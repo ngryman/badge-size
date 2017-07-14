@@ -89,36 +89,31 @@ test('reject other types of compression', async t => {
 })
 
 test('Size is valid', async t => {
-  const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?max=100000&threshold=200000')
+  const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?max=100000&softmax=200000')
   assert(t, res, '/size-14 B-brightgreen.svg')
 })
 
-test('Single param is used if threshold param is omitted', async t => {
+test('Single param is used if softmax param is omitted', async t => {
   const res2 = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?max=1')
   assert(t, res2, '/size-14 B-red.svg')
 })
 
-test('Single param is used if max param is omitted', async t => {
-  const res3 = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?threshold=1')
-  assert(t, res3, '/size-14 B-red.svg')
+test('Size checking is bypassed if max is not provided', async t => {
+  const res3 = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?softmax=1')
+  assert(t, res3, '/size-14 B-brightgreen.svg')
 })
 
-test('Color is red if size greater than fail threshold', async t => {
-  const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?max=1&threshold=1')
+test('Color is red if size greater than softmax threshold', async t => {
+  const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?max=1&softmax=1')
   assert(t, res, '/size-14 B-red.svg')
 })
 
-test('Color is yellow if size greater than max but less than threshold', async t => {
-  const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?max=1&threshold=10000')
+test('Color is yellow if size greater than max but less than softmax', async t => {
+  const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?max=1&softmax=100000')
   assert(t, res, '/size-14 B-yellow.svg')
 })
 
-test('Color is yellow if size greater than threshold but less than max', async t => {
-  const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?max=1&threshold=10000')
-  assert(t, res, '/size-14 B-yellow.svg')
-})
-
-test('max and threshold params override color option', async t => {
-  const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?max=100000&threshold=500000&color=red')
-  assert(t, res, '/size-14 B-brightgreen.svg')
+test('max and softmax params override color option ', async t => {
+  const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?max=1&softmax=2&color=orange')
+  assert(t, res, '/size-14 B-red.svg')
 })

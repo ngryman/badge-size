@@ -21,24 +21,14 @@ function parse(req) {
       label: query.label || ((query.compression ? 'gzip ' : '') + 'size'),
       color: query.color || 'brightgreen',
       style: query.style || null,
-      max: query.max || query.threshold || null,
-      threshold: query.threshold || query.max || null,
+      max: query.max || null,
+      softmax: query.softmax || null,
       value: 'unknown',
       extension: 'svg',
       size: 0,
       compression: query.compression,
       compressedSize: 0,
-      err: null,
-      updateColor: function() {
-        if (this.max) {
-          let thresh = [this.max, this.threshold, this.size].sort((a, b) => a - b)
-          switch (this.size) {
-            case (thresh[0]) : this.color = 'brightgreen' ; break
-            case (thresh[1]) : this.color = 'yellow' ; break
-            case (thresh[2]) : this.color = 'red' ; break
-          }
-        }
-      }
+      err: null
     }
 
     // empty path
@@ -86,7 +76,6 @@ function fetch(baton) {
     }).then(res => {
       baton.size = Number(res.headers['content-length'])
       baton.data = res.body
-      baton.updateColor()
       resolve(baton)
     }).catch(err => {
       baton.err = 'Unknown path'
@@ -134,6 +123,25 @@ function compressed(baton) {
  */
 function pretty(baton) {
   baton.value = prettyBytes(baton.compressedSize || baton.size)
+  return baton
+}
+
+/**
+ * Set color based on size.
+ *
+ * @param  {object} baton
+ * @return {object}
+ */
+function updateColor(baton) {
+  if (!baton.max) return baton
+
+  if (baton.size > baton.max) {
+    baton.color = 'red'
+    if (baton.softmax && baton.size < baton.softmax) {
+      baton.color = 'yellow'
+    }
+  }
+
   return baton
 }
 
@@ -186,6 +194,7 @@ module.exports = function badgeSize(req, res) {
     .then(fetch)
     .then(compressed)
     .then(pretty)
+    .then(updateColor)
     .then(redirect(res))
     .catch(redirect(res))
 }

@@ -32,7 +32,7 @@ It works like any other badge service you may know and it's configurable in the 
 Here is the general pattern of a typical `badge-size` url:
 
 ```
-http://img.badgesize.io/:filepath[.svg|png|jpg][?compression=gzip][&label=string][&max=string][&threshold=string]
+http://img.badgesize.io/:filepath[.svg|png|jpg][?compression=gzip][&label=string][&max=string][&softmax=string]
 ```
 
 #### `:filepath`
@@ -90,15 +90,15 @@ You can specify one of the following:
 ![](https://img.shields.io/badge/style-flat--square-brightgreen.svg?style=flat-square)
 ![](https://img.shields.io/badge/style-social-brightgreen.svg?style=social)
 
-#### `[&max=string] [&threshold=string]`
+#### `[&max=string] [&softmax=string]`
 
 Optional size limits in bytes.<br>
-Including either parameter will produce a red button if the limit is exceeded. <br>
-If both values are provided and the file size falls between them, the generated badge will be yellow.<br>
-This setting will override the color option.
+Max is a hard limit. Exceeding this will generate a red badge. <br>
+If softlimit is provided (in addition to max) and the file size falls within the range of max and softmax, a yellow badge will be generated.<br>
+This setting will override the color option in the above two scenarios.
 
 ```
-http://img.badgesize.io/:filepath?max=100000&threshold=200000
+http://img.badgesize.io/:filepath?max=100000&softmax=200000
 ```
 
 ![](https://img.shields.io/badge/size-50%20kB-brightgreen.svg)
