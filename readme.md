@@ -32,7 +32,7 @@ It works like any other badge service you may know and it's configurable in the 
 Here is the general pattern of a typical `badge-size` url:
 
 ```
-http://img.badgesize.io/:filepath[.svg|png|jpg][?compression=gzip][&label=string][&pass=string][&fail=string]
+http://img.badgesize.io/:filepath[.svg|png|jpg][?compression=gzip][&label=string][&max=string][&threshold=string]
 ```
 
 #### `:filepath`
@@ -90,14 +90,15 @@ You can specify one of the following:
 ![](https://img.shields.io/badge/style-flat--square-brightgreen.svg?style=flat-square)
 ![](https://img.shields.io/badge/style-social-brightgreen.svg?style=social)
 
-#### `[&pass=string] [&fail=string]`
+#### `[&max=string] [&threshold=string]`
 
 Optional size limits in bytes.<br>
 Including either parameter will produce a red button if the limit is exceeded. <br>
 If both values are provided and the file size falls between them, the generated badge will be yellow.<br>
-This setting is overridden by the color option.
+This setting will override the color option.
+
 ```
-http://img.badgesize.io/:filepath?pass=100000&fail=200000
+http://img.badgesize.io/:filepath?max=100000&threshold=200000
 ```
 
 ![](https://img.shields.io/badge/size-50%20kB-brightgreen.svg)
@@ -108,11 +109,11 @@ http://img.badgesize.io/:filepath?pass=100000&fail=200000
 ## Contributors
 
 [//]: contributor-faces
-<a href="https://github.com/ngryman"><img src="https://avatars1.githubusercontent.com/u/892048?v=3" title="ngryman" width="80" height="80"></a>
-<a href="https://github.com/greenkeeperio-bot"><img src="https://avatars2.githubusercontent.com/u/14790466?v=3" title="greenkeeperio-bot" width="80" height="80"></a>
-<a href="https://github.com/nathancahill"><img src="https://avatars3.githubusercontent.com/u/1383872?v=3" title="nathancahill" width="80" height="80"></a>
-<a href="https://github.com/OliverJAsh"><img src="https://avatars1.githubusercontent.com/u/921609?v=3" title="OliverJAsh" width="80" height="80"></a>
-<a href="https://github.com/coopy"><img src="https://avatars1.githubusercontent.com/u/794843?v=3" title="coopy" width="80" height="80"></a>
+<a href="https://github.com/ngryman"><img src="https://avatars6.githubusercontent.com/u/892048?v=4" title="ngryman" width="80" height="80"></a>
+<a href="https://github.com/greenkeeperio-bot"><img src="https://avatars6.githubusercontent.com/u/14790466?v=3" title="greenkeeperio-bot" width="80" height="80"></a>
+<a href="https://github.com/nathancahill"><img src="https://avatars4.githubusercontent.com/u/1383872?v=4" title="nathancahill" width="80" height="80"></a>
+<a href="https://github.com/OliverJAsh"><img src="https://avatars6.githubusercontent.com/u/921609?v=4" title="OliverJAsh" width="80" height="80"></a>
+<a href="https://github.com/coopy"><img src="https://avatars6.githubusercontent.com/u/794843?v=4" title="coopy" width="80" height="80"></a>
 [//]: contributor-faces
 
 <sup>Generated with [contributors-faces](https://github.com/ngryman/contributor-faces).</sup>

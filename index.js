@@ -19,10 +19,10 @@ function parse(req) {
 
     let baton = {
       label: query.label || ((query.compression ? 'gzip ' : '') + 'size'),
-      color: query.color || null,
+      color: query.color || 'brightgreen',
       style: query.style || null,
-      pass: query.pass || query.fail || Infinity,
-      fail: query.fail || query.pass || Infinity,
+      max: query.max || query.threshold || null,
+      threshold: query.threshold || query.max || null,
       value: 'unknown',
       extension: 'svg',
       size: 0,
@@ -30,8 +30,8 @@ function parse(req) {
       compressedSize: 0,
       err: null,
       updateColor: function() {
-        if (!this.color) {
-          let thresh = [this.pass, this.fail, this.size].sort((a, b) => a - b)
+        if (this.max) {
+          let thresh = [this.max, this.threshold, this.size].sort((a, b) => a - b)
           switch (this.size) {
             case (thresh[0]) : this.color = 'brightgreen' ; break
             case (thresh[1]) : this.color = 'yellow' ; break
