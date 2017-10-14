@@ -50,7 +50,7 @@
     "ava": "^0.19.0",
     "codecov.io": "^0.1.6",
     "contributor-faces": "^1.0.0",
-    "eslint": "^3.7.0",
+    "eslint": "^4.9.0",
     "eslint-config-ngryman": "^1.7.0",
     "nyc": "^10.0.0",
     "pre-commit": "^1.1.3",
