@@ -43,6 +43,11 @@ test('accept gzip compression', async t => {
   assert(t, res, '/gzip size-34 B-brightgreen.svg')
 })
 
+test('accept brotli compression', async t => {
+  const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?compression=brotli')
+  assert(t, res, '/brotli size-34 B-brightgreen.svg')
+})
+
 test('accept other branch names', async t => {
   const res = await request(t, '/baxterthehacker/public-repo/changes/README.md.svg')
   assert(t, res, '/size-12 B-brightgreen.svg')

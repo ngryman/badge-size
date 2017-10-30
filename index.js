@@ -1,6 +1,7 @@
 const url = require('url')
 const got = require('got')
 const gzipSize = require('gzip-size')
+const brotliSize = require('brotli-size')
 const prettyBytes = require('pretty-bytes')
 
 /** URLs of services in use. */
@@ -17,8 +18,12 @@ function parse(req) {
   return new Promise((resolve, reject) => {
     const { pathname, query } = url.parse(req.url, true)
 
+    const compressionLabel =
+      'gzip' === query.compression ? 'gzip ' :
+      'brotli' === query.compression ? 'brotli ' : ''
+
     let baton = {
-      label: query.label || ((query.compression ? 'gzip ' : '') + 'size'),
+      label: query.label || `${compressionLabel}size`,
       color: query.color || 'brightgreen',
       style: query.style || null,
       max: query.max || null,
@@ -73,14 +78,16 @@ function fetch(baton) {
       headers: {
         'accept-encoding': 'identity'
       }
-    }).then(res => {
-      baton.size = Number(res.headers['content-length'])
-      baton.data = res.body
-      resolve(baton)
-    }).catch(err => {
-      baton.err = 'Unknown path'
-      return reject(baton)
     })
+      .then(res => {
+        baton.size = Number(res.headers['content-length'])
+        baton.data = res.body
+        resolve(baton)
+      })
+      .catch(err => {
+        baton.err = 'Unknown path'
+        return reject(baton)
+      })
   })
 }
 
@@ -107,6 +114,10 @@ function compressed(baton) {
         baton.compressedSize = size
         resolve(baton)
       })
+    }
+    else if ('brotli' === baton.compression) {
+      baton.compressedSize = brotliSize.sync(baton.data)
+      resolve(baton)
     }
     else {
       baton.err = 'Unknown compression'
@@ -154,16 +165,11 @@ function updateColor(baton) {
 function redirect(res) {
   return function(baton) {
     if (baton.err) {
-      baton.value = ('string' === typeof baton.err ?
-        baton.err :
-        baton.err.message
-      ).toLowerCase()
+      baton.value = ('string' === typeof baton.err ? baton.err : baton.err.message).toLowerCase()
       baton.color = 'lightgrey'
     }
 
-    let pathname = encodeURI(
-      `/${baton.label}-${baton.value}-${baton.color}.${baton.extension}`
-    )
+    let pathname = encodeURI(`/${baton.label}-${baton.value}-${baton.color}.${baton.extension}`)
     let badgeUrl = `${SHIELDS_URL}${pathname}`
     if (baton.style) badgeUrl += `?style=${baton.style}`
 

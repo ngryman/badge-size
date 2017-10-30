@@ -21,6 +21,7 @@ their builds to their users. But you can use it for any other purpose of course 
 :------------|:---------------------------------------------------------------------------------|
 Normal size  | ![](http://img.badgesize.io/ngryman/badge-size/master/index.js.svg)
 Gzipped size | ![](http://img.badgesize.io/ngryman/badge-size/master/index.js.svg?compression=gzip)
+Brotli size  | ![](http://img.badgesize.io/ngryman/badge-size/master/index.js.svg?compression=brotli)
 Custom label | ![](http://img.badgesize.io/ngryman/badge-size/master/index.js.svg?label=As_tiny_as)
 PNG format   | ![](http://img.badgesize.io/ngryman/badge-size/master/index.js.png)
 JPG format   | ![](http://img.badgesize.io/ngryman/badge-size/master/index.js.jpg)
@@ -56,14 +57,14 @@ Note that the branch name is mandatory.
 
 Optional image format. By default `svg` is used.
 
-#### `[?compression=gzip]`
+#### `[?compression=gzip|brotli]`
 
 Optional compression format to measure. It's useful if you want to advertise the *true* size your
-file would take on the wire, assuming the server has `gzip` compression enabled.
+file would take on the wire, assuming the server has `gzip` or `brotli` compression enabled.
 
 #### `[&label=string]`
 
-Optional text to display in the badge instead of *size* / *gzip size*.
+Optional text to display in the badge instead of *size* / *gzip size* / *brotli size*.
 
 #### `[&color=string]`
 
