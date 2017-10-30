@@ -21,6 +21,7 @@ their builds to their users. But you can use it for any other purpose of course 
 :------------|:---------------------------------------------------------------------------------|
 Normal size  | ![](http://img.badgesize.io/ngryman/badge-size/master/index.js.svg)
 Gzipped size | ![](http://img.badgesize.io/ngryman/badge-size/master/index.js.svg?compression=gzip)
+Brotli size  | ![](http://img.badgesize.io/ngryman/badge-size/master/index.js.svg?compression=brotli)
 Custom label | ![](http://img.badgesize.io/ngryman/badge-size/master/index.js.svg?label=As_tiny_as)
 PNG format   | ![](http://img.badgesize.io/ngryman/badge-size/master/index.js.png)
 JPG format   | ![](http://img.badgesize.io/ngryman/badge-size/master/index.js.jpg)
@@ -32,7 +33,7 @@ It works like any other badge service you may know and it's configurable in the 
 Here is the general pattern of a typical `badge-size` url:
 
 ```
-http://img.badgesize.io/:filepath[.svg|png|jpg][?compression=gzip][&label=string][&max=string][&softmax=string]
+http://img.badgesize.io/:filepath[.svg|png|jpg][?compression=gzip|brotli][&label=string][&max=string][&softmax=string]
 ```
 
 #### `:filepath`
@@ -56,14 +57,14 @@ Note that the branch name is mandatory.
 
 Optional image format. By default `svg` is used.
 
-#### `[?compression=gzip]`
+#### `[?compression=gzip|brotli]`
 
 Optional compression format to measure. It's useful if you want to advertise the *true* size your
-file would take on the wire, assuming the server has `gzip` compression enabled.
+file would take on the wire, assuming the server has `gzip` or `brotli` compression enabled.
 
 #### `[&label=string]`
 
-Optional text to display in the badge instead of *size* / *gzip size*.
+Optional text to display in the badge instead of *size* / *gzip size* / *brotli size*.
 
 #### `[&color=string]`
 
@@ -109,11 +110,11 @@ http://img.badgesize.io/:filepath?max=100000&softmax=200000
 ## Contributors
 
 [//]: contributor-faces
-<a href="https://github.com/ngryman"><img src="https://avatars6.githubusercontent.com/u/892048?v=4" title="ngryman" width="80" height="80"></a>
-<a href="https://github.com/greenkeeperio-bot"><img src="https://avatars6.githubusercontent.com/u/14790466?v=3" title="greenkeeperio-bot" width="80" height="80"></a>
-<a href="https://github.com/nathancahill"><img src="https://avatars4.githubusercontent.com/u/1383872?v=4" title="nathancahill" width="80" height="80"></a>
-<a href="https://github.com/OliverJAsh"><img src="https://avatars6.githubusercontent.com/u/921609?v=4" title="OliverJAsh" width="80" height="80"></a>
-<a href="https://github.com/coopy"><img src="https://avatars6.githubusercontent.com/u/794843?v=4" title="coopy" width="80" height="80"></a>
+<a href="https://github.com/ngryman"><img src="https://avatars2.githubusercontent.com/u/892048?v=4" title="ngryman" width="80" height="80"></a>
+<a href="https://github.com/nathancahill"><img src="https://avatars0.githubusercontent.com/u/1383872?v=4" title="nathancahill" width="80" height="80"></a>
+<a href="https://github.com/OliverJAsh"><img src="https://avatars2.githubusercontent.com/u/921609?v=4" title="OliverJAsh" width="80" height="80"></a>
+<a href="https://github.com/coopy"><img src="https://avatars2.githubusercontent.com/u/794843?v=4" title="coopy" width="80" height="80"></a>
+<a href="https://github.com/hairmot"><img src="https://avatars2.githubusercontent.com/u/8102124?v=4" title="hairmot" width="80" height="80"></a>
 [//]: contributor-faces
 
 <sup>Generated with [contributors-faces](https://github.com/ngryman/contributor-faces).</sup>
