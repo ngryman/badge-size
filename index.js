@@ -54,7 +54,7 @@ function parse(req) {
     let index = pathname.lastIndexOf('.')
     if (-1 !== index) {
       baton.extension = pathname.substr(index + 1)
-      if (-1 === 'svg|png|jpg'.indexOf(baton.extension)) {
+      if (-1 === 'svg|png|jpg|json'.indexOf(baton.extension)) {
         baton.extension = 'svg'
       }
       else {
@@ -157,16 +157,28 @@ function updateColor(baton) {
 }
 
 /**
- * Redirect to shields.io to serve the badge image.
+ * Send the response.
+ * For image formats it redirects to shields.io to serve the badge image.
  *
  * @param  {ServerResponse} res
  * @return {function}
  */
-function redirect(res) {
+function send(res) {
   return function(baton) {
     if (baton.err) {
       baton.value = ('string' === typeof baton.err ? baton.err : baton.err.message).toLowerCase()
       baton.color = 'lightgrey'
+    }
+
+    if ('json' === baton.extension) {
+      res.writeHead(200, {
+        'content-type': 'application/json'
+      })
+      res.end(JSON.stringify({
+        size: baton.value,
+        color: baton.color
+      }))
+      return
     }
 
     let pathname = encodeURI(`/${baton.label}-${baton.value}-${baton.color}.${baton.extension}`)
@@ -201,6 +213,6 @@ module.exports = function badgeSize(req, res) {
     .then(compressed)
     .then(pretty)
     .then(updateColor)
-    .then(redirect(res))
-    .catch(redirect(res))
+    .then(send(res))
+    .catch(send(res))
 }
