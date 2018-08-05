@@ -1,4 +1,4 @@
-# badge-size [![npm][npm-image]][npm-url] [![travis][travis-image]][travis-url]
+# badge-size [![npm][npm-image]][npm-url] [![install size](https://packagephobia.now.sh/badge?p=badge-size)](https://packagephobia.now.sh/result?p=badge-size) [![travis][travis-image]][travis-url]
 
 [npm-image]: https://img.shields.io/npm/v/badge-size.svg?style=flat
 [npm-url]: https://npmjs.org/package/badge-size
