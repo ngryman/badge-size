@@ -84,7 +84,7 @@ function fetch(baton) {
         baton.data = res.body
         resolve(baton)
       })
-      .catch(err => {
+      .catch(() => {
         baton.err = 'Unknown path'
         return reject(baton)
       })
@@ -104,16 +104,15 @@ function compressed(baton) {
     baton.compressedSize = baton.size
 
     if ('gzip' === baton.compression) {
-      gzipSize(baton.data, (err, size) => {
-        /* istanbul ignore if  */
-        if (err) {
-          baton.err = err
-          return reject(baton)
-        }
-
-        baton.compressedSize = size
-        resolve(baton)
-      })
+      gzipSize(baton.data)
+        .then(size => {
+          baton.compressedSize = size
+          resolve(baton)
+        })
+        .catch(/* istanbul ignore next  */ () => {
+          baton.err = 'Unable to stat gzip'
+          reject(baton)
+        })
     }
     else if ('brotli' === baton.compression) {
       baton.compressedSize = brotliSize.sync(baton.data)

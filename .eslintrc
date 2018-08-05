@@ -1,6 +1,9 @@
 {
   "extends": "ngryman",
   "rules": {
-    "handle-callback-err": 0
+    "no-inline-comments": 0,
+    "indent": ["error", 2, {
+      "flatTernaryExpressions": true
+    }]
   }
 }
