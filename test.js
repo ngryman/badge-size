@@ -129,5 +129,10 @@ test('ignore `softmax` if `max` is not present', async t => {
 
 test('accept json format', async t => {
   const res = await request(t, '/baxterthehacker/public-repo/master/README.md.json')
-  assertBody(t, res, { size: '14 B', color: 'brightgreen' })
+  assertBody(t, res, { prettySize: '14 B', originalSize: 14, size: 14, color: 'brightgreen' })
+})
+
+test('accept json format and differenciate original size from compressed size', async t => {
+  const res = await request(t, '/baxterthehacker/public-repo/master/README.md.json?compression=gzip')
+  assertBody(t, res, { prettySize: '34 B', originalSize: 14, size: 34, color: 'brightgreen' })
 })
