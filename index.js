@@ -26,8 +26,8 @@ function parse(req) {
       label: query.label || `${compressionLabel}size`,
       color: query.color || 'brightgreen',
       style: query.style || null,
-      max: query.max || null,
-      softmax: query.softmax || null,
+      max: query.max || Infinity,
+      softmax: query.softmax || Infinity,
       value: 'unknown',
       extension: 'svg',
       size: 0,
@@ -143,14 +143,11 @@ function pretty(baton) {
  * @return {object}
  */
 function updateColor(baton) {
-  if (!baton.max) return baton
+  if (Infinity === baton.max) return baton
 
-  if (baton.size > baton.max) {
-    baton.color = 'red'
-    if (baton.softmax && baton.size < baton.softmax) {
-      baton.color = 'yellow'
-    }
-  }
+  baton.color =
+    baton.size > baton.softmax ? 'yellow' :
+    baton.size > baton.max ? 'red' : baton.color
 
   return baton
 }

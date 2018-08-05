@@ -97,34 +97,34 @@ test('reject other types of compression', async t => {
   assertHeaders(t, res, '/size-unknown compression-lightgrey.svg')
 })
 
-test('Size is valid', async t => {
-  const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?max=100000&softmax=200000')
+test('check size and set color to green when size is less than `max`', async t => {
+  const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?max=100')
   assertHeaders(t, res, '/size-14 B-brightgreen.svg')
 })
 
-test('Single param is used if softmax param is omitted', async t => {
-  const res2 = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?max=1')
-  assertHeaders(t, res2, '/size-14 B-red.svg')
+test('check size and set color to green when size is less than `softmax`', async t => {
+  const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?max=100&softmax=100')
+  assertHeaders(t, res, '/size-14 B-brightgreen.svg')
 })
 
-test('Size checking is bypassed if max is not provided', async t => {
-  const res3 = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?softmax=1')
-  assertHeaders(t, res3, '/size-14 B-brightgreen.svg')
-})
-
-test('Color is red if size greater than softmax threshold', async t => {
-  const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?max=1&softmax=1')
-  assertHeaders(t, res, '/size-14 B-red.svg')
-})
-
-test('Color is yellow if size greater than max but less than softmax', async t => {
-  const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?max=1&softmax=100000')
+test('check size and set color to yellow when size is less than `max` but more than `softmax`', async t => {
+  const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?max=100&softmax=13')
   assertHeaders(t, res, '/size-14 B-yellow.svg')
 })
 
-test('max and softmax params override color option ', async t => {
-  const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?max=1&softmax=2&color=orange')
+test('check size do not override a custom color if size is less than `max`', async t => {
+  const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?max=100&color=orange')
+  assertHeaders(t, res, '/size-14 B-orange.svg')
+})
+
+test('check size do override a custom color if size is more than `max`', async t => {
+  const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?max=13&color=orange')
   assertHeaders(t, res, '/size-14 B-red.svg')
+})
+
+test('ignore `softmax` if `max` is not present', async t => {
+  const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?softmax=13')
+  assertHeaders(t, res, '/size-14 B-brightgreen.svg')
 })
 
 test('accept json format', async t => {
