@@ -10,7 +10,8 @@
     "node": "^8.10.0 || >=9.10.0"
   },
   "files": [
-    "index.js"
+    "index.js",
+    "lib"
   ],
   "scripts": {
     "lint": "eslint *.js",
