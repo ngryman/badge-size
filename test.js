@@ -94,7 +94,7 @@ test('reject invalid path', async t => {
 
 test('reject other types of compression', async t => {
   const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?compression=lzma')
-  assertHeaders(t, res, '/size-unknown compression-lightgrey.svg')
+  assertHeaders(t, res, '/lzma size-unknown compression-lightgrey.svg')
 })
 
 test('check size and set color to green when size is less than `max`', async t => {

@@ -1,9 +1,14 @@
 {
   "extends": "ngryman",
   "rules": {
-    "no-inline-comments": 0,
     "indent": ["error", 2, {
-      "flatTernaryExpressions": true
+      "flatTernaryExpressions": true,
+      "SwitchCase": 1
+    }],
+    "space-before-function-paren": ["error", {
+      "anonymous": "never",
+      "named": "never",
+      "asyncArrow": "always"
     }]
   }
 }
