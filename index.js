@@ -1,3 +1,4 @@
+const color = require('./lib/color')
 const compression = require('./lib/compression')
 const constraints = require('./lib/constraints')
 const fetch = require('./lib/fetch')
@@ -32,6 +33,7 @@ module.exports = function badgeSize(req, res) {
     .then(tap(cond(compression, 'compression')))
     .then(tap(pretty))
     .then(tap(cond(constraints, 'max')))
+    .then(tap(color))
     .then(bind(send, res))
     .catch(bind(send, res))
 }

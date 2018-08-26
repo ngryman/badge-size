@@ -33,53 +33,58 @@ test.afterEach.cb(t => {
 
 test('redirect to shields.io', async t => {
   const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg')
-  assertHeaders(t, res, '/size-14 B-brightgreen.svg')
+  assertHeaders(t, res, '/size-14 B-44cc11.svg')
 })
 
 test('accept any url', async t => {
   const res = await request(t,
     '/https://raw.githubusercontent.com/baxterthehacker/public-repo/master/README.md.svg')
-  assertHeaders(t, res, '/size-14 B-brightgreen.svg')
+  assertHeaders(t, res, '/size-14 B-44cc11.svg')
 })
 
 test('accept gzip compression', async t => {
   const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?compression=gzip')
-  assertHeaders(t, res, '/gzip size-34 B-brightgreen.svg')
+  assertHeaders(t, res, '/gzip size-34 B-44cc11.svg')
 })
 
 test('accept brotli compression', async t => {
   const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?compression=brotli')
-  assertHeaders(t, res, '/brotli size-18 B-brightgreen.svg')
+  assertHeaders(t, res, '/brotli size-18 B-44cc11.svg')
 })
 
 test('accept other branch names', async t => {
   const res = await request(t, '/baxterthehacker/public-repo/changes/README.md.svg')
-  assertHeaders(t, res, '/size-12 B-brightgreen.svg')
+  assertHeaders(t, res, '/size-12 B-44cc11.svg')
 })
 
 test('allow other image extensions', async t => {
   const res = await request(t, '/baxterthehacker/public-repo/changes/README.md.png')
-  assertHeaders(t, res, '/size-12 B-brightgreen.png')
+  assertHeaders(t, res, '/size-12 B-44cc11.png')
 })
 
 test('default to svg if no comprehensible extension is found', async t => {
   const res = await request(t, '/baxterthehacker/public-repo/changes/README.md')
-  assertHeaders(t, res, '/size-12 B-brightgreen.svg')
+  assertHeaders(t, res, '/size-12 B-44cc11.svg')
 })
 
 test('accept a custom label', async t => {
   const res = await request(t, '/baxterthehacker/public-repo/master/README.md?label=taille')
-  assertHeaders(t, res, '/taille-14 B-brightgreen.svg')
+  assertHeaders(t, res, '/taille-14 B-44cc11.svg')
 })
 
-test('accept a custom color', async t => {
+test('accept a custom aliased color', async t => {
+  const res = await request(t, '/baxterthehacker/public-repo/master/README.md?color=blue')
+  assertHeaders(t, res, '/size-14 B-007ec6.svg')
+})
+
+test('accept a custom hexadecimal color', async t => {
   const res = await request(t, '/baxterthehacker/public-repo/master/README.md?color=bada55')
   assertHeaders(t, res, '/size-14 B-bada55.svg')
 })
 
 test('accept a custom style', async t => {
   const res = await request(t, '/baxterthehacker/public-repo/master/README.md?style=flat')
-  assertHeaders(t, res, '/size-14 B-brightgreen.svg?style=flat')
+  assertHeaders(t, res, '/size-14 B-44cc11.svg?style=flat')
 })
 
 test('reject empty paths', async t => {
@@ -99,40 +104,40 @@ test('reject other types of compression', async t => {
 
 test('check size and set color to green when size is less than `max`', async t => {
   const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?max=100')
-  assertHeaders(t, res, '/size-14 B-brightgreen.svg')
+  assertHeaders(t, res, '/size-14 B-44cc11.svg')
 })
 
 test('check size and set color to green when size is less than `softmax`', async t => {
   const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?max=100&softmax=100')
-  assertHeaders(t, res, '/size-14 B-brightgreen.svg')
+  assertHeaders(t, res, '/size-14 B-44cc11.svg')
 })
 
 test('check size and set color to yellow when size is less than `max` but more than `softmax`', async t => {
   const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?max=100&softmax=13')
-  assertHeaders(t, res, '/size-14 B-yellow.svg')
+  assertHeaders(t, res, '/size-14 B-dfb317.svg')
 })
 
 test('check size do not override a custom color if size is less than `max`', async t => {
   const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?max=100&color=orange')
-  assertHeaders(t, res, '/size-14 B-orange.svg')
+  assertHeaders(t, res, '/size-14 B-fe7d37.svg')
 })
 
 test('check size do override a custom color if size is more than `max`', async t => {
   const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?max=13&color=orange')
-  assertHeaders(t, res, '/size-14 B-red.svg')
+  assertHeaders(t, res, '/size-14 B-e05d44.svg')
 })
 
 test('ignore `softmax` if `max` is not present', async t => {
   const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg?softmax=13')
-  assertHeaders(t, res, '/size-14 B-brightgreen.svg')
+  assertHeaders(t, res, '/size-14 B-44cc11.svg')
 })
 
 test('accept json format', async t => {
   const res = await request(t, '/baxterthehacker/public-repo/master/README.md.json')
-  assertBody(t, res, { prettySize: '14 B', originalSize: 14, size: 14, color: 'brightgreen' })
+  assertBody(t, res, { prettySize: '14 B', originalSize: 14, size: 14, color: '44cc11' })
 })
 
 test('accept json format and differenciate original size from compressed size', async t => {
   const res = await request(t, '/baxterthehacker/public-repo/master/README.md.json?compression=gzip')
-  assertBody(t, res, { prettySize: '34 B', originalSize: 14, size: 34, color: 'brightgreen' })
+  assertBody(t, res, { prettySize: '34 B', originalSize: 14, size: 34, color: '44cc11' })
 })
