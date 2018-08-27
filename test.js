@@ -37,8 +37,7 @@ test('redirect to shields.io', async t => {
 })
 
 test('accept any url', async t => {
-  const res = await request(t,
-    '/https://raw.githubusercontent.com/baxterthehacker/public-repo/master/README.md.svg')
+  const res = await request(t, '/https://raw.githubusercontent.com/baxterthehacker/public-repo/master/README.md.svg')
   assertHeaders(t, res, '/size-14 B-44cc11.svg')
 })
 
@@ -65,6 +64,11 @@ test('allow other image extensions', async t => {
 test('default to svg if no comprehensible extension is found', async t => {
   const res = await request(t, '/baxterthehacker/public-repo/changes/README.md')
   assertHeaders(t, res, '/size-12 B-44cc11.svg')
+})
+
+test('default to svg if no comprehensible extension is found for any url', async t => {
+  const res = await request(t, '/https://raw.githubusercontent.com/baxterthehacker/public-repo/master/README.md.svg')
+  assertHeaders(t, res, '/size-14 B-44cc11.svg')
 })
 
 test('accept a custom label', async t => {
