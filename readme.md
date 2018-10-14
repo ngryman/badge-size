@@ -19,12 +19,12 @@ their builds to their users. But you can use it for any other purpose of course 
 
  Badge       | URL
 :------------|:---------------------------------------------------------------------------------|
-Normal size  | ![](http://img.badgesize.io/ngryman/badge-size/master/index.js.svg)
-Gzipped size | ![](http://img.badgesize.io/ngryman/badge-size/master/index.js.svg?compression=gzip)
-Brotli size  | ![](http://img.badgesize.io/ngryman/badge-size/master/index.js.svg?compression=brotli)
-Custom label | ![](http://img.badgesize.io/ngryman/badge-size/master/index.js.svg?label=As_tiny_as)
-PNG format   | ![](http://img.badgesize.io/ngryman/badge-size/master/index.js.png)
-JPG format   | ![](http://img.badgesize.io/ngryman/badge-size/master/index.js.jpg)
+Normal size  | ![](https://img.badgesize.io/ngryman/badge-size/master/index.js.svg)
+Gzipped size | ![](https://img.badgesize.io/ngryman/badge-size/master/index.js.svg?compression=gzip)
+Brotli size  | ![](https://img.badgesize.io/ngryman/badge-size/master/index.js.svg?compression=brotli)
+Custom label | ![](https://img.badgesize.io/ngryman/badge-size/master/index.js.svg?label=As_tiny_as)
+PNG format   | ![](https://img.badgesize.io/ngryman/badge-size/master/index.js.png)
+JPG format   | ![](https://img.badgesize.io/ngryman/badge-size/master/index.js.jpg)
 
 
 ## Usage
@@ -33,7 +33,7 @@ It works like any other badge service you may know and it's configurable in the 
 Here is the general pattern of a typical `badge-size` url:
 
 ```
-http://img.badgesize.io/:filepath[.svg|png|jpg][?compression=gzip|brotli][&label=string][&max=string][&softmax=string]
+https://img.badgesize.io/:filepath[.svg|png|jpg][?compression=gzip|brotli][&label=string][&max=string][&softmax=string]
 ```
 
 #### `:filepath`
@@ -99,7 +99,7 @@ If softlimit is provided (in addition to max) and the file size falls within the
 This setting will override the color option in the above two scenarios.
 
 ```
-http://img.badgesize.io/:filepath?max=100000&softmax=200000
+https://img.badgesize.io/:filepath?max=100000&softmax=200000
 ```
 
 ![](https://img.shields.io/badge/size-50%20kB-brightgreen.svg)
@@ -127,4 +127,4 @@ http://img.badgesize.io/:filepath?max=100000&softmax=200000
 
 ## License
 
-MIT © [Nicolas Gryman](http://ngryman.sh)
+MIT © [Nicolas Gryman](https://ngryman.sh)
