@@ -2,7 +2,7 @@
   "name": "badge-size",
   "version": "1.0.0",
   "description": "Displays the size of a given file in your repository",
-  "author": "Nicolas Gryman <ngryman@gmail.com> (http://ngryman.sh)",
+  "author": "Nicolas Gryman <ngryman@gmail.com> (https://ngryman.sh/)",
   "license": "MIT",
   "repository": "ngryman/badge-size",
   "main": "index.js",
