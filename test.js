@@ -145,3 +145,8 @@ test('accept json format and differenciate original size from compressed size', 
   const res = await request(t, '/baxterthehacker/public-repo/master/README.md.json?compression=gzip')
   assertBody(t, res, { prettySize: '34 B', originalSize: 14, size: 34, color: '44cc11' })
 })
+
+test('works with HEAD request on Cloudflare (#75)', async t => {
+  const res = await request(t, '/https://unpkg.com/constate.json?style=flat-square')
+  assertBody(t, res, { prettySize: '323 B', originalSize: 323, size: 323, color: '44cc11' })
+})
