@@ -16,7 +16,7 @@
   "scripts": {
     "lint": "eslint *.js",
     "unit": "nyc ava",
-    "start": "micro index.js --listen tcp://0.0.0.0:${PORT-3000}",
+    "start": "vercel dev",
     "test": "npm run lint -s && npm run unit -s",
     "dev": "npm run unit -- --watch",
     "coverage": "nyc report --reporter=text-lcov | codecov",

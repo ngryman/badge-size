@@ -1,10 +1,10 @@
-const color = require('./lib/color')
-const compression = require('./lib/compression')
-const constraints = require('./lib/constraints')
-const fetch = require('./lib/fetch')
-const init = require('./lib/init')
-const pretty = require('./lib/pretty')
-const send = require('./lib/send')
+const color = require('../lib/color')
+const compression = require('../lib/compression')
+const constraints = require('../lib/constraints')
+const fetch = require('../lib/fetch')
+const init = require('../lib/init')
+const pretty = require('../lib/pretty')
+const send = require('../lib/send')
 
 const bind = (fn, ...args) => fn.bind(fn, ...args)
 

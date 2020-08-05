@@ -3,7 +3,7 @@ import test from 'ava'
 import micro from 'micro'
 import got from 'got'
 import listen from 'test-listen'
-import badgeSize from './'
+import badgeSize from './api'
 
 const SHIELDS_URL = 'https://img.shields.io/badge'
 
@@ -148,5 +148,5 @@ test('accept json format and differenciate original size from compressed size', 
 
 test('works with HEAD request on Cloudflare (#75)', async t => {
   const res = await request(t, '/https://unpkg.com/constate.json?style=flat-square')
-  assertBody(t, res, { prettySize: '323 B', originalSize: 323, size: 323, color: '44cc11' })
+  assertBody(t, res, { prettySize: '573 B', originalSize: 573, size: 573, color: '44cc11' })
 })
