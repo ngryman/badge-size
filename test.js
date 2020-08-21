@@ -150,3 +150,8 @@ test('works with HEAD request on Cloudflare (#75)', async t => {
   const res = await request(t, '/https://unpkg.com/constate.json?style=flat-square')
   assertBody(t, res, { prettySize: '573 B', originalSize: 573, size: 573, color: '44cc11' })
 })
+
+test('fixup broken absolute URLs (#86)', async t => {
+  const res = await request(t, '/https:/unpkg.com/constate.json?style=flat-square')
+  assertBody(t, res, { prettySize: '573 B', originalSize: 573, size: 573, color: '44cc11' })
+})
