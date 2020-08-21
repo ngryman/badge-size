@@ -22,7 +22,7 @@
     "coverage": "nyc report --reporter=text-lcov | codecov",
     "check-coverage": "nyc check-coverage --lines 95 --functions 95 --branches 95",
     "see-coverage": "nyc report --reporter=html && open coverage/index.html",
-    "contributors": "contributor-faces --exclude '*-bot'"
+    "contributors": "contributor-faces --exclude '*bot'"
   },
   "precommit": [
     "test",
