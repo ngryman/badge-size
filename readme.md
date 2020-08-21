@@ -52,9 +52,20 @@ For example if I want to point to this repository `index.js`, it would be:
 
 Note that the branch name is mandatory.
 
-#### `[.svg|png]`
+#### `[.svg|png|json]`
 
 Optional image format. By default `svg` is used.
+
+When `json` is used, the response is a JSON object of the following shape:
+
+```json
+{
+  "color": "44cc11",
+  "originalSize": 997,
+  "prettySize": "997 B",
+  "size": 997
+}
+```
 
 #### `[?compression=gzip|brotli]`
 
@@ -117,6 +128,7 @@ https://img.badgesize.io/:filepath?max=100000&softmax=200000
 <a href="https://github.com/OliverJAsh"><img src="https://avatars2.githubusercontent.com/u/921609?v=4" title="OliverJAsh" width="80" height="80"></a>
 <a href="https://github.com/coopy"><img src="https://avatars2.githubusercontent.com/u/794843?v=4" title="coopy" width="80" height="80"></a>
 <a href="https://github.com/hairmot"><img src="https://avatars2.githubusercontent.com/u/8102124?v=4" title="hairmot" width="80" height="80"></a>
+<a href="https://github.com/styfle"><img src="https://avatars1.githubusercontent.com/u/229881?v=4" title="styfle" width="80" height="80"></a>
 <a href="https://github.com/XhmikosR"><img src="https://avatars2.githubusercontent.com/u/349621?v=4" title="XhmikosR" width="80" height="80"></a>
 
 [//]: contributor-faces
