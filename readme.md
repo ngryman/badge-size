@@ -24,7 +24,6 @@ Gzipped size | ![](https://img.badgesize.io/ngryman/badge-size/master/api/index.
 Brotli size  | ![](https://img.badgesize.io/ngryman/badge-size/master/api/index.js.svg?compression=brotli)
 Custom label | ![](https://img.badgesize.io/ngryman/badge-size/master/api/index.js.svg?label=As_tiny_as)
 PNG format   | ![](https://img.badgesize.io/ngryman/badge-size/master/api/index.js.png)
-JPG format   | ![](https://img.badgesize.io/ngryman/badge-size/master/api/index.js.jpg)
 
 
 ## Usage
@@ -53,7 +52,7 @@ For example if I want to point to this repository `index.js`, it would be:
 
 Note that the branch name is mandatory.
 
-#### `[.svg|png|jpg]`
+#### `[.svg|png]`
 
 Optional image format. By default `svg` is used.
 
