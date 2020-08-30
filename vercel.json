@@ -1,8 +1,12 @@
 {
-  "routes": [
+  "rewrites": [
     {
-      "src": "(.*)",
-      "dest": "/api/index"
+      "source": "/robots.txt",
+      "destination": "/public/robots.txt"
+    },
+    {
+      "source": "(.*)",
+      "destination": "/api/index"
     }
   ]
 }
