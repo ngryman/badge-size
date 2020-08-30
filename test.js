@@ -7,9 +7,10 @@ import badgeSize from './api'
 
 const SHIELDS_URL = 'https://img.shields.io/badge'
 
-function request(t, path) {
+function request(t, path, headers) {
   return got(`${t.context.url}${path}`, {
-    followRedirect: false
+    followRedirect: false,
+    headers
   })
 }
 
@@ -146,7 +147,7 @@ test('accept json format and differenciate original size from compressed size', 
   assertBody(t, res, { prettySize: '34 B', originalSize: 14, size: 34, color: '44cc11' })
 })
 
-test('works with HEAD request on Cloudflare (#75)', async t => {
+test('work with HEAD request on Cloudflare (#75)', async t => {
   const res = await request(t, '/https://unpkg.com/constate.json?style=flat-square')
   assertBody(t, res, { prettySize: '573 B', originalSize: 573, size: 573, color: '44cc11' })
 })
@@ -154,4 +155,11 @@ test('works with HEAD request on Cloudflare (#75)', async t => {
 test('fixup broken absolute URLs (#86)', async t => {
   const res = await request(t, '/https:/unpkg.com/constate.json?style=flat-square')
   assertBody(t, res, { prettySize: '573 B', originalSize: 573, size: 573, color: '44cc11' })
+})
+
+test('reject denied user agenets', async t => {
+  const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg', {
+    'user-agent': 'Mozilla/5.0 (compatible; Baiduspider-render/2.0; +http://www.baidu.com/search/spider.html)'
+  })
+  assertHeaders(t, res, '/size-access denied-lightgrey.svg')
 })

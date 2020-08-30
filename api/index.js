@@ -1,3 +1,4 @@
+const acl = require('../lib/acl')
 const color = require('../lib/color')
 const compression = require('../lib/compression')
 const constraints = require('../lib/constraints')
@@ -29,6 +30,7 @@ const tap = (fn) => async (baton) => {
  */
 module.exports = function badgeSize(req, res) {
   return init(req)
+    .then(tap(acl))
     .then(tap(fetch))
     .then(tap(cond(compression, 'compression')))
     .then(tap(pretty))
