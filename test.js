@@ -157,9 +157,14 @@ test('fixup broken absolute URLs (#86)', async t => {
   assertBody(t, res, { prettySize: '573 B', originalSize: 573, size: 573, color: '44cc11' })
 })
 
-test('reject denied user agenets', async t => {
+test('reject denied user agents', async t => {
   const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg', {
     'user-agent': 'Mozilla/5.0 (compatible; Baiduspider-render/2.0; +http://www.baidu.com/search/spider.html)'
   })
-  assertHeaders(t, res, '/size-access denied-lightgrey.svg')
+  assertHeaders(t, res, '/size-unavailable-lightgrey.svg')
+})
+
+test('reject denied URLs', async t => {
+  const res = await request(t, '/https://unpkg.com/vxe-table/lib/list/src/list.min.js')
+  assertHeaders(t, res, '/size-unavailable-lightgrey.svg')
 })
