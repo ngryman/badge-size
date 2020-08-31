@@ -15,8 +15,8 @@ function request(t, path, headers) {
 }
 
 function assertHeaders(t, res, pathname) {
-  t.is(res.statusCode, 303)
-  t.is(res.headers.location, `${SHIELDS_URL}${encodeURI(pathname)}`)
+  t.is(res.statusCode, 200)
+  t.is(res.headers['x-shields-url'], `${SHIELDS_URL}${pathname}`)
 }
 
 function assertBody(t, res, body) {
@@ -32,7 +32,7 @@ test.afterEach.cb(t => {
   t.context.server.close(t.end)
 })
 
-test('redirect to shields.io', async t => {
+test('serve a badge from shields.io', async t => {
   const res = await request(t, '/baxterthehacker/public-repo/master/README.md.svg')
   assertHeaders(t, res, '/size-14 B-44cc11.svg')
 })
