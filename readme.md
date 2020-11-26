@@ -136,6 +136,13 @@ https://img.badgesize.io/:filepath?max=100000&softmax=200000
 <sup>Generated with [contributors-faces](https://github.com/ngryman/contributor-faces).</sup>
 
 
+## Other projects
+
+- [Fauda](https://github.com/ngryman/fauda): configuration made simple.
+- [Reading Time](https://github.com/ngryman/reading-time): Medium's like reading time estimation.
+- [Commitizen Emoji](https://github.com/ngryman/cz-emoji): Commitizen adapter formatting commit messages using emojis.
+
+
 ## License
 
 MIT © [Nicolas Gryman](https://ngryman.sh)
