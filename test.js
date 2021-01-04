@@ -148,13 +148,13 @@ test('accept json format and differenciate original size from compressed size', 
 })
 
 test('work with HEAD request on Cloudflare (#75)', async t => {
-  const res = await request(t, '/https://unpkg.com/constate.json?style=flat-square')
-  assertBody(t, res, { prettySize: '573 B', originalSize: 573, size: 573, color: '44cc11' })
+  const res = await request(t, '/https:/unpkg.com/badge-size.json?style=flat-square')
+  assertBody(t, res, { prettySize: '434 B', originalSize: 434, size: 434, color: '44cc11' })
 })
 
 test('fixup broken absolute URLs (#86)', async t => {
-  const res = await request(t, '/https:/unpkg.com/constate.json?style=flat-square')
-  assertBody(t, res, { prettySize: '573 B', originalSize: 573, size: 573, color: '44cc11' })
+  const res = await request(t, '/https:/unpkg.com/badge-size.json?style=flat-square')
+  assertBody(t, res, { prettySize: '434 B', originalSize: 434, size: 434, color: '44cc11' })
 })
 
 test('reject denied user agents', async t => {
