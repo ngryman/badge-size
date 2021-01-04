@@ -48,6 +48,7 @@
     "got": "^9.0.0",
     "gzip-size": "^5.0.0",
     "micro": "^9.3.2",
+    "pino-http": "^5.3.0",
     "pretty-bytes": "^5.1.0"
   },
   "devDependencies": {
