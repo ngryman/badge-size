@@ -16,7 +16,7 @@
   "scripts": {
     "lint": "eslint *.js",
     "unit": "nyc ava",
-    "start": "vercel dev",
+    "start": "micro",
     "test": "npm run lint -s && npm run unit -s",
     "dev": "npm run unit -- --watch",
     "coverage": "nyc report --reporter=text-lcov | codecov",
