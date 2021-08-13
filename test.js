@@ -1,6 +1,7 @@
 /*eslint max-len: 0*/
 import test from 'ava'
 import micro from 'micro'
+import nock from 'nock'
 import got from 'got'
 import listen from 'test-listen'
 import badgeSize from './api'
@@ -147,14 +148,9 @@ test('accept json format and differenciate original size from compressed size', 
   assertBody(t, res, { prettySize: '34 B', originalSize: 14, size: 34, color: '44cc11' })
 })
 
-test('work with HEAD request on Cloudflare (#75)', async t => {
-  const res = await request(t, '/https://unpkg.com/constate.json?style=flat-square')
-  assertBody(t, res, { prettySize: '573 B', originalSize: 573, size: 573, color: '44cc11' })
-})
-
 test('fixup broken absolute URLs (#86)', async t => {
-  const res = await request(t, '/https:/unpkg.com/constate.json?style=flat-square')
-  assertBody(t, res, { prettySize: '573 B', originalSize: 573, size: 573, color: '44cc11' })
+  const res = await request(t, '/https:/unpkg.com/constate@3.3.0.json?style=flat-square')
+  assertBody(t, res, { prettySize: '978 B', originalSize: 978, size: 978, color: '44cc11' })
 })
 
 test('reject denied user agents', async t => {
@@ -167,4 +163,20 @@ test('reject denied user agents', async t => {
 test('reject denied URLs', async t => {
   const res = await request(t, '/https://unpkg.com/vxe-table/lib/list/src/list.min.js')
   assertHeaders(t, res, '/size-unavailable-lightgrey.svg')
+})
+
+test('reject file with large content-length header', async t => {
+  nock('https://large')
+    .get('/content-length')
+    .reply(200, '', { 'content-length': '10000000' })
+  const res = await request(t, '/https://large/content-length.svg')
+  assertHeaders(t, res, '/size-exceeded-lightgrey.svg')
+})
+
+test('reject file with large content', async t => {
+  nock('https://large')
+    .get('/content')
+    .reply(200, ' '.repeat(10000000))
+  const res = await request(t, '/https://large/content.svg')
+  assertHeaders(t, res, '/size-exceeded-lightgrey.svg')
 })
