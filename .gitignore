@@ -16,3 +16,7 @@ Thumbs.db
 .Trashes
 
 .vercel
+
+# Added by cargo
+
+/target

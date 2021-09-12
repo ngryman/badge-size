@@ -96,9 +96,10 @@ colors:
 Optional style. By default it's `flat`.<br>
 You can specify one of the following:
 
-![](https://img.shields.io/badge/style-plastic-brightgreen.svg?style=plastic)
 ![](https://img.shields.io/badge/style-flat-brightgreen.svg?style=flat)
 ![](https://img.shields.io/badge/style-flat--square-brightgreen.svg?style=flat-square)
+![](https://img.shields.io/badge/style-plastic-brightgreen.svg?style=plastic)
+![](https://img.shields.io/badge/style-for-the-badge-brightgreen.svg?style=social)
 ![](https://img.shields.io/badge/style-social-brightgreen.svg?style=social)
 
 #### `[&max=string] [&softmax=string]`
