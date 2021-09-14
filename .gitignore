@@ -2,6 +2,7 @@
 .nyc_output
 coverage/
 .todo
+target/
 
 # node
 node_modules/
@@ -16,7 +17,3 @@ Thumbs.db
 .Trashes
 
 .vercel
-
-# Added by cargo
-
-/target
