@@ -5,8 +5,7 @@ use tide::{
 
 use crate::BadgeInfo;
 
-const CACHE_CONTROL: &str =
-  "public, max-age=120, s-maxage=300, stale-while-revalidate=86400";
+const CACHE_CONTROL: &str = "public, max-age=300, stale-while-revalidate=86400";
 
 pub async fn send_json(badge_info: BadgeInfo) -> Result<Response> {
   let body = Body::from_json(&badge_info)?;
