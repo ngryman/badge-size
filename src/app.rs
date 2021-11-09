@@ -15,9 +15,10 @@ impl App {
     Self { server }
   }
 
-  pub async fn listen(self) -> io::Result<()> {
+  pub async fn listen(self, port: u32) -> io::Result<()> {
     let server = self.server.clone();
-    server.listen("0.0.0.0:3000").await?;
+    let addr = format!("0.0.0.0:{}", port);
+    server.listen(addr).await?;
     Ok(())
   }
 }

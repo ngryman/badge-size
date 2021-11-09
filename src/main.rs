@@ -5,6 +5,8 @@ use structopt::StructOpt;
 
 #[derive(Debug, StructOpt, Clone)]
 pub struct Settings {
+  #[structopt(long = "port", env = "PORT", default_value = "3000")]
+  pub port: u32,
   #[structopt(long = "logpath", env = "LOGPATH")]
   pub logpath: Option<String>,
 }
@@ -33,5 +35,6 @@ async fn init_logger(logpath: Option<String>) -> Result<()> {
 async fn main(settings: Settings) -> Result<()> {
   dbg!(&settings);
   init_logger(settings.logpath).await?;
+  App::new().listen(settings.port).await?;
   Ok(())
 }
