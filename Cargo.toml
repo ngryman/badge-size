@@ -7,20 +7,28 @@ edition = "2018"
 
 [dependencies]
 anyhow = "1.0.43"
-async-std = { version = "1.9.0", features = ["attributes"] }
+async-std = { version = "1.9.0", default-features = false, features = [
+  "attributes",
+] }
 brotli = "3.3.2"
 bytesize = "1.1.0"
-chrono = { version = "0.4.19", default-features = false }
+chrono = "0.4.19"
 flate2 = "1.0.21"
-flexi_logger = { version = "0.19", features = ["async"] }
+flexi_logger = { version = "0.19", default-features = false, features = [
+  "async",
+] }
 paw = "1.0.0"
 serde = { version = "1.0.130", features = ["derive"] }
 serde_json = { version = "1.0.69", default-features = false, features = [
   "preserve_order",
 ] }
-structopt = { version = "0.3.23", features = ["paw"] }
-surf = "2.3.1"
-tide = "0.16.0"
+structopt = { version = "0.3.23", default-features = false, features = ["paw"] }
+surf = { version = "2.3.1", default-features = false, features = [
+  "h1-client-rustls",
+] }
+tide = { version = "0.16.0", default-features = false, features = [
+  "h1-server",
+] }
 
 [dev-dependencies]
 insta = "1.8.0"
