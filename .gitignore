@@ -1,12 +1,9 @@
 # project
-.nyc_output
-coverage/
 .todo
 target/
 
-# node
-node_modules/
-npm-debug.log
+# rust
+target/
 
 # OS
 .DS_Store
@@ -15,5 +12,3 @@ Desktop.ini
 Thumbs.db
 .Spotlight-V100
 .Trashes
-
-.vercel
