@@ -33,7 +33,6 @@ async fn init_logger(logpath: Option<String>) -> Result<()> {
 #[async_std::main]
 #[paw::main]
 async fn main(settings: Settings) -> Result<()> {
-  dbg!(&settings);
   init_logger(settings.logpath).await?;
   App::new().listen(settings.port).await?;
   Ok(())
