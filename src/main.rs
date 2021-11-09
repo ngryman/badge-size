@@ -1,6 +1,37 @@
+use anyhow::Result;
 use badge_size::App;
+use flexi_logger::{FileSpec, Logger};
+use structopt::StructOpt;
+
+#[derive(Debug, StructOpt, Clone)]
+pub struct Settings {
+  #[structopt(long = "logpath", env = "LOGPATH")]
+  pub logpath: Option<String>,
+}
+
+async fn init_logger(logpath: Option<String>) -> Result<()> {
+  let mut logger = Logger::try_with_env_or_str("info,surf=error,tide=error")?;
+
+  logger = if let Some(logpath) = logpath {
+    logger.log_to_file(
+      FileSpec::default()
+        .directory(logpath)
+        .basename("badgesize")
+        .use_timestamp(false),
+    )
+  } else {
+    logger.log_to_stdout()
+  };
+
+  logger.start()?;
+
+  Ok(())
+}
 
 #[async_std::main]
-async fn main() -> Result<(), std::io::Error> {
-  App::new().listen().await
+#[paw::main]
+async fn main(settings: Settings) -> Result<()> {
+  dbg!(&settings);
+  init_logger(settings.logpath).await?;
+  Ok(())
 }

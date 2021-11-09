@@ -11,7 +11,13 @@ async-std = { version = "1.9.0", features = ["attributes"] }
 brotli = "3.3.2"
 bytesize = "1.1.0"
 flate2 = "1.0.21"
+flexi_logger = { version = "0.19", features = ["async"] }
+paw = "1.0.0"
 serde = { version = "1.0.130", features = ["derive"] }
+serde_json = { version = "1.0.69", default-features = false, features = [
+  "preserve_order",
+] }
+structopt = { version = "0.3.23", features = ["paw"] }
 surf = "2.3.1"
 tide = "0.16.0"
 

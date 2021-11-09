@@ -29,9 +29,9 @@ pub struct VisualInfo {
   pub total_width: u16,
 }
 
-impl From<BadgeInfo> for VisualInfo {
+impl From<&BadgeInfo> for VisualInfo {
   #[must_use]
-  fn from(badge_info: BadgeInfo) -> Self {
+  fn from(badge_info: &BadgeInfo) -> Self {
     let label_x = PADDING;
     let label_width = compute_width(&badge_info.label);
 
@@ -41,7 +41,7 @@ impl From<BadgeInfo> for VisualInfo {
     let total_width = (message_x + message_width + PADDING) * 10;
 
     Self {
-      color: badge_info.color,
+      color: badge_info.color.clone(),
       gradient: match badge_info.style {
         Style::Flat => Gradient::Subtle,
         Style::FlatSquare => Gradient::None,
@@ -51,10 +51,10 @@ impl From<BadgeInfo> for VisualInfo {
         Style::Flat | Style::FlatSquare => 20,
         Style::Plastic => 18,
       },
-      label: badge_info.label,
+      label: badge_info.label.clone(),
       label_x,
       label_width,
-      message: badge_info.pretty_size,
+      message: badge_info.pretty_size.clone(),
       message_x,
       message_width,
       radius: match badge_info.style {

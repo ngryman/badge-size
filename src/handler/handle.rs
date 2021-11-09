@@ -10,7 +10,7 @@ pub async fn handle(req: Request<()>) -> Result<Response> {
     return Ok(Response::new(StatusCode::NotFound));
   }
 
-  let badge_info = match pipeline(req).await {
+  let badge_info = match pipeline(&req).await {
     Ok(badge_info) => badge_info,
     Err(err) => BadgeInfo::from(err),
   };
@@ -21,7 +21,7 @@ pub async fn handle(req: Request<()>) -> Result<Response> {
   }
 }
 
-async fn pipeline(req: Request<()>) -> Result<BadgeInfo> {
+async fn pipeline(req: &Request<()>) -> Result<BadgeInfo> {
   let url = req.url();
 
   let options = Options::from_url(url)?;

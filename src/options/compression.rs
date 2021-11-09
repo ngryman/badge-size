@@ -1,7 +1,9 @@
 use anyhow::{anyhow, Result};
+use serde::{Deserialize, Serialize};
 use std::str::FromStr;
 
-#[derive(Debug, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, PartialEq)]
+#[serde(rename_all = "lowercase")]
 pub enum Compression {
   None,
   Brotli,

@@ -1,7 +1,7 @@
 use std::io;
 use tide::Server;
 
-use crate::handle;
+use crate::{handle, TracingMiddleware};
 
 pub struct App {
   pub server: Server<()>,
@@ -10,6 +10,7 @@ pub struct App {
 impl App {
   pub fn new() -> Self {
     let mut server = tide::new();
+    server.with(TracingMiddleware::new());
     server.at("*").get(handle);
     Self { server }
   }

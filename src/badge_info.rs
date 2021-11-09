@@ -18,7 +18,7 @@ pub struct BadgeInfo {
 }
 
 impl BadgeInfo {
-  pub fn to_svg(self) -> String {
+  pub fn as_svg(&self) -> String {
     render_badge(self)
   }
 }
@@ -60,5 +60,11 @@ impl From<tide::Error> for BadgeInfo {
       pretty_size: err.to_string().to_lowercase(),
       ..Default::default()
     }
+  }
+}
+
+impl std::fmt::Display for BadgeInfo {
+  fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    write!(f, "{}", serde_json::to_string(&self).unwrap())
   }
 }

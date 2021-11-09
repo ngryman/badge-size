@@ -4,7 +4,7 @@ use super::{templates, Gradient, VisualInfo};
 
 const PADDING: u16 = 5;
 
-pub fn render_badge(badge_info: BadgeInfo) -> String {
+pub fn render_badge(badge_info: &BadgeInfo) -> String {
   let visual_info = VisualInfo::from(badge_info);
   render_container(&visual_info)
 }
