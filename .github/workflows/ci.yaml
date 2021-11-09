@@ -9,6 +9,13 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/cache@v2
         with:
+          path: |
+            ~/.rustup/toolchains
+            ~/.rustup/update-hashes
+            ~/.rustup/settings.toml
+          key: "${{ runner.os }}-toolchain-${{ hashFiles('rust-toolchain.toml') }}"
+      - uses: actions/cache@v2
+        with:
           path: ~/.cargo/registry
           key: "${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}"
       - uses: actions/cache@v2
@@ -33,6 +40,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.rustup/toolchains
+            ~/.rustup/update-hashes
+            ~/.rustup/settings.toml
+          key: "${{ runner.os }}-toolchain-${{ hashFiles('rust-toolchain.toml') }}"
       - uses: actions/cache@v2
         with:
           path: ~/.cargo/registry
