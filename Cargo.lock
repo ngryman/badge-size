@@ -367,6 +367,7 @@ dependencies = [
  "async-std",
  "brotli",
  "bytesize",
+ "chrono",
  "flate2",
  "flexi_logger",
  "insta",

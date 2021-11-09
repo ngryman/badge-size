@@ -1,3 +1,4 @@
+use chrono::Utc;
 use serde::Serialize;
 use std::{fmt::Display, time::Instant};
 use tide::{log, Middleware, Next, Request, Result, StatusCode};
@@ -6,6 +7,7 @@ use crate::BadgeInfo;
 
 #[derive(Serialize)]
 pub struct Trace<'a> {
+  date: String,
   path: String,
   status: StatusCode,
   duration: u128,
@@ -47,6 +49,7 @@ where
     let status = res.status();
     let badge = res.ext::<BadgeInfo>();
     let trace = Trace {
+      date: Utc::now().to_string(),
       path,
       status,
       duration: start.elapsed().as_millis(),
