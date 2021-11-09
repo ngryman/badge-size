@@ -29,9 +29,9 @@ impl FromStr for Compression {
 impl ToString for Compression {
   fn to_string(&self) -> String {
     match self {
-      &Self::Brotli => "brotli".to_string(),
-      &Self::Gzip => "gzip".to_string(),
-      &Self::None => "".to_string(),
+      Self::Brotli => "brotli".to_string(),
+      Self::Gzip => "gzip".to_string(),
+      Self::None => "".to_string(),
     }
   }
 }

@@ -35,6 +35,12 @@ impl TracingMiddleware {
   }
 }
 
+impl Default for TracingMiddleware {
+  fn default() -> Self {
+    Self::new()
+  }
+}
+
 #[tide::utils::async_trait]
 impl<State> Middleware<State> for TracingMiddleware
 where

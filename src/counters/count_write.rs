@@ -46,7 +46,7 @@ mod test {
     let buf: [u8; 1024] = [1; 1024];
     // Act
     let mut cw = CountWrite::new();
-    cw.write(&buf).unwrap();
+    cw.write_all(&buf).unwrap();
     // Assert
     assert_eq!(cw.count(), buf.len());
   }

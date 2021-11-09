@@ -6,7 +6,7 @@ use super::{acl, processors, senders};
 
 pub async fn handle(req: Request<()>) -> Result<Response> {
   // Early bail out if the request is denied
-  if !acl::is_allowed(&req.as_ref()) {
+  if !acl::is_allowed(req.as_ref()) {
     return Ok(Response::new(StatusCode::NotFound));
   }
 

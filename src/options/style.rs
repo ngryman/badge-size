@@ -35,9 +35,9 @@ impl FromStr for Style {
 impl ToString for Style {
   fn to_string(&self) -> String {
     match self {
-      &Self::Flat => "flat".to_string(),
-      &Self::FlatSquare => "flat-square".to_string(),
-      &Self::Plastic => "plastic".to_string(),
+      Self::Flat => "flat".to_string(),
+      Self::FlatSquare => "flat-square".to_string(),
+      Self::Plastic => "plastic".to_string(),
     }
   }
 }

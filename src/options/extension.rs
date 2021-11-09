@@ -35,9 +35,9 @@ impl FromStr for Extension {
 impl ToString for Extension {
   fn to_string(&self) -> String {
     match self {
-      &Self::Json => "json".to_string(),
-      &Self::Png => "png".to_string(),
-      &Self::Svg => "svg".to_string(),
+      Self::Json => "json".to_string(),
+      Self::Png => "png".to_string(),
+      Self::Svg => "svg".to_string(),
     }
   }
 }

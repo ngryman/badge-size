@@ -43,15 +43,15 @@ impl FromStr for Color {
 impl ToString for Color {
   fn to_string(&self) -> String {
     match self {
-      &Self::Brightgreen => "44cc11".to_string(),
-      &Self::Green => "97ca00".to_string(),
-      &Self::YellowGreen => "a4a61d".to_string(),
-      &Self::Yellow => "dfb317".to_string(),
-      &Self::Orange => "fe7d37".to_string(),
-      &Self::Red => "e05d44".to_string(),
-      &Self::LightGrey => "9f9f9f".to_string(),
-      &Self::Blue => "007ec6".to_string(),
-      &Self::Hex(ref hex) => hex.to_owned(),
+      Self::Brightgreen => "44cc11".to_string(),
+      Self::Green => "97ca00".to_string(),
+      Self::YellowGreen => "a4a61d".to_string(),
+      Self::Yellow => "dfb317".to_string(),
+      Self::Orange => "fe7d37".to_string(),
+      Self::Red => "e05d44".to_string(),
+      Self::LightGrey => "9f9f9f".to_string(),
+      Self::Blue => "007ec6".to_string(),
+      Self::Hex(ref hex) => hex.to_owned(),
     }
   }
 }

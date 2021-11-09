@@ -49,7 +49,7 @@ mod tests {
     let res = is_allowed(&req);
 
     // Assert
-    assert_eq!(res, true);
+    assert!(res);
   }
 
   #[test]
@@ -65,7 +65,7 @@ mod tests {
     let res = is_allowed(&req);
 
     // Assert
-    assert_eq!(res, false);
+    assert!(!res);
   }
 
   #[test]
@@ -82,6 +82,6 @@ mod tests {
     let res = is_allowed(&req);
 
     // Assert
-    assert_eq!(res, false);
+    assert!(!res);
   }
 }

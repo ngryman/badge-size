@@ -14,8 +14,8 @@ fn render_container(visual_info: &VisualInfo) -> String {
   templates::CONTAINER_TEMPLATE
     .replace("{width}", &(visual_info.total_width / 10).to_string())
     .replace("{title}", &title)
-    .replace("{background}", &render_background(&visual_info))
-    .replace("{text}", &render_text(&visual_info))
+    .replace("{background}", &render_background(visual_info))
+    .replace("{text}", &render_text(visual_info))
 }
 
 fn render_background(visual_info: &VisualInfo) -> String {
@@ -29,7 +29,7 @@ fn render_background(visual_info: &VisualInfo) -> String {
   let width_message_bg = visual_info.message_width + 2 * PADDING;
 
   template
-    .replace("{clip_path}", &render_clip_path(&visual_info))
+    .replace("{clip_path}", &render_clip_path(visual_info))
     .replace("{color}", &visual_info.color.to_string())
     .replace("{width_label_bg}", &(width_label_bg).to_string())
     .replace("{width_message_bg}", &(width_message_bg).to_string())
@@ -57,9 +57,9 @@ fn render_text(visual_info: &VisualInfo) -> String {
   } = visual_info;
 
   let label_nodes =
-    render_text_part(&label, *label_x + 1, *text_y, *label_width, *text_shadow);
+    render_text_part(label, *label_x + 1, *text_y, *label_width, *text_shadow);
   let message_nodes = render_text_part(
-    &message,
+    message,
     *message_x - 1,
     *text_y,
     *message_width,
