@@ -35,8 +35,7 @@ async fn main() -> Result<(), GooseError> {
         .register_task(task!(load_twbs_css_brotli).set_weight(1)?)
     )
     // You could also set a default host here, for example:
-    .set_default(GooseDefault::Host, "https://img.runbots.io")?
-    // .set_default(GooseDefault::Host, "http://img.badgesize.io")?
+    .set_default(GooseDefault::Host, "http://img.badgesize.io")?
     // We set a default run time so this test runs to completion.
     .set_default(GooseDefault::RunTime, 1)?
     .execute()
