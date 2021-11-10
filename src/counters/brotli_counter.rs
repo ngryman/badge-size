@@ -3,6 +3,25 @@ use std::io::{Result, Write};
 
 use super::{CountWrite, Counter};
 
+/// Compression quality [0-11]
+///
+/// [Apache] defaults: `5`
+/// [Nginx] defaults: `6`
+///
+///
+/// [apache]: https://httpd.apache.org/docs/2.4/mod/mod_brotli.html
+/// [nginx]: https://github.com/google/ngx_brotli
+const BROTLI_QUALITY: u32 = 6;
+
+/// Window size
+///
+/// [Apache] defaults: `18`
+/// [Nginx] defaults: `19 (512k)`
+///
+/// [apache]: https://httpd.apache.org/docs/2.4/mod/mod_brotli.html
+/// [nginx]: https://github.com/google/ngx_brotli
+const BROTLI_LGWIN: u32 = 19;
+
 pub struct BrotliCounter {
   inner: CompressorWriter<CountWrite>,
 }
@@ -10,7 +29,12 @@ pub struct BrotliCounter {
 impl BrotliCounter {
   pub fn new() -> Self {
     Self {
-      inner: CompressorWriter::new(CountWrite::new(), 4096, 6, 6),
+      inner: CompressorWriter::new(
+        CountWrite::new(),
+        4096,
+        BROTLI_QUALITY,
+        BROTLI_LGWIN,
+      ),
     }
   }
 }
