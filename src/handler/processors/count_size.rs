@@ -22,17 +22,15 @@ pub async fn count_size(mut context: Context) -> Result<Context> {
 
   loop {
     let bytes_read = reader.read(&mut buf).await?;
+    let buf_slice = &buf[0..bytes_read];
 
     if bytes_read > 0 {
-      raw_counter.write_all(&buf[0..bytes_read])?;
+      raw_counter.write_all(buf_slice)?;
       if let Some(ref mut counter) = compression_counter {
-        counter.write_all(&buf[0..bytes_read])?;
-      }
-    } else {
-      raw_counter.flush()?;
-      if let Some(ref mut counter) = compression_counter {
+        counter.write_all(buf_slice)?;
         counter.flush()?;
       }
+    } else {
       break;
     };
   }

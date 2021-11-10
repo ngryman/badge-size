@@ -20,10 +20,6 @@ impl Counter for CountWrite {
 
 impl Write for CountWrite {
   fn write(&mut self, buf: &[u8]) -> Result<usize> {
-    // let written = match buf.iter().position(|c| *c == 0) {
-    //   Some(written) => written,
-    //   None => buf.len(),
-    // };
     let written = buf.len();
     self.count += written;
     Ok(written)
