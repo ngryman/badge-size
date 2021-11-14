@@ -1,12 +1,6 @@
-# badge-size [![npm][npm-image]][npm-url] [![travis][travis-image]][travis-url]
-
-[npm-image]: https://img.shields.io/npm/v/badge-size.svg?style=flat
-[npm-url]: https://npmjs.org/package/badge-size
-[travis-image]: https://img.shields.io/travis/ngryman/badge-size.svg?style=flat
-[travis-url]: https://travis-ci.org/ngryman/badge-size
+# badge-size <a href="https://vercel.com?utm_source=badge-size&utm_campaign=oss"><img align="right" src="https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg" alt="Powered by Vercel" /></a>
 
 > Displays the size of a given file in your repository.
-
 
 `badge-size` allows you to display in real time the size of a given file which lives in your repository.
 The size is always the one of your last pushed commit.
