@@ -1,0 +1,6 @@
+---
+source: tests/mod.rs
+expression: res.body_string().await?
+
+---
+"\n  <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"74\" height=\"20\" role=\"img\" aria-label=\"size: 116 B\">\n    <title>size: 116 B</title>\n    \n  <linearGradient id=\"s\" x2=\"0\" y2=\"100%\">\n    <stop offset=\"0\" stop-color=\"#bbb\" stop-opacity=\".1\"/>\n    <stop offset=\"1\" stop-opacity=\".1\"/>\n  </linearGradient>\n  \n  <clipPath id=\"r\">\n    <rect width=\"74\" height=\"20\" rx=\"3\" fill=\"#fff\"/>\n  </clipPath>\n  <g clip-path=\"url(#r)\">\n    <rect width=\"31\" height=\"20\" fill=\"#555\"/>\n    <rect x=\"31\" width=\"43\" height=\"20\" fill=\"#97ca00\"/>\n    <rect width=\"74\" height=\"20\" fill=\"url(#s)\"/>\n  </g>\n\n\n    <g fill=\"#fff\" font-family=\"Verdana,Geneva,DejaVu Sans,sans-serif\" text-rendering=\"geometricPrecision\" font-size=\"11\">\n      \n  <text x=\"6\" y=\"15\" aria-hidden=\"true\" fill=\"#010101\" fill-opacity=\".3\" textLength=\"21\">size</text>\n  <text x=\"6\" y=\"14\" fill=\"#fff\" textLength=\"21\">size</text>\n\n  <text x=\"35\" y=\"15\" aria-hidden=\"true\" fill=\"#010101\" fill-opacity=\".3\" textLength=\"33\">116 B</text>\n  <text x=\"35\" y=\"14\" fill=\"#fff\" textLength=\"33\">116 B</text>\n\n    </g>\n  </svg>\n"
