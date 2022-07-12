@@ -9,13 +9,13 @@ const send = require('../lib/send')
 
 const bind = (fn, ...args) => fn.bind(fn, ...args)
 
-const cond = (fn, param) => async (baton) => {
+const cond = (fn, param) => async baton => {
   if (baton[param] != null) {
     await fn(baton)
   }
 }
 
-const tap = (fn) => async (baton) => {
+const tap = fn => async baton => {
   await fn(baton)
   return baton
 }
