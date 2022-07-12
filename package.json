@@ -7,7 +7,7 @@
   "repository": "ngryman/badge-size",
   "main": "index.js",
   "engines": {
-    "node": "^8.10.0 || >=9.10.0"
+    "node": "16.x"
   },
   "files": [
     "index.js",
