@@ -45,7 +45,7 @@
   "dependencies": {
     "brotli-size": "^0.0.3",
     "cz-emoji": "^1.2.2",
-    "got": "^9.0.0",
+    "got": "^11.8.5",
     "gzip-size": "^5.0.0",
     "micro": "^9.3.2",
     "pretty-bytes": "^5.1.0"
