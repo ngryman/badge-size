@@ -1,4 +1,8 @@
-# badge-size <a href="https://vercel.com?utm_source=badge-size&utm_campaign=oss"><img align="right" src="https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg" alt="Powered by Vercel" /></a>
+# badgesize.io [now has a new home](https://github.com/nevware21/badgesize)
+
+This project `img.badgesize.io` is no longer maintained or supported from this repo, please use [@nevware21/badgesize](https://github.com/nevware21/badgesize) for all status, feature and support requests.
+
+## badge-size (previous)
 
 > Displays the size of a given file in your repository.
 
